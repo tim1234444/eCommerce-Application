@@ -1,1 +1,1 @@
-const message = '5';
+const message = "5";
