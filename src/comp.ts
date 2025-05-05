@@ -1,5 +1,5 @@
 function example() {
-  const X = '4';
+  const X = '5';
   return X;
 }
 
