@@ -1,56 +1,54 @@
-# 🛍️ E-Commerce Application
+# React + TypeScript + Vite
 
-Добро пожаловать в наше приложение электронной коммерции! Эта платформа воспроизводит реальный опыт покупок в цифровой среде. Это комплексный портал для онлайн-покупок, обеспечивающий интерактивный и беспроблемный пользовательский путь — от поиска товаров до оформления заказа. 🚀
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## 🎯 Цель проекта
+Currently, two official plugins are available:
 
-Создать современное, адаптивное SPA-приложение электронной коммерции с реалистичным интерфейсом и полноценной функциональностью, позволяющей пользователям:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- Просматривать товары
-- Смотреть подробные описания
-- Добавлять товары в корзину
-- Регистрироваться и входить в аккаунт
-- Управлять профилем и заказами
+## Expanding the ESLint configuration
 
-## 📱 Адаптивность
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-Интерфейс приложения оптимизирован для различных устройств, включая смартфоны с минимальной шириной 390px.
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+});
+```
 
-## 📄 Основные страницы
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-- **Страница входа** 🔐 — проверка и вход пользователя
-- **Страница регистрации** 📝 — создание нового аккаунта
-- **Главная страница** 🏠 — ссылки на ключевые разделы
-- **Каталог продуктов** 📋 — просмотр ассортимента
-- **Подробная страница продукта** 🔎 — информация и добавление в корзину
-- **Профиль пользователя** 👤 — редактирование личных данных и адресов
-- **Корзина** 🛒 — управление добавленными товарами
-- **О нас** 🙋 — информация о команде и проекте
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x';
+import reactDom from 'eslint-plugin-react-dom';
 
-## 🧪 Технологический стек
-
-| Категория              | Технологии                                           |
-|------------------------|------------------------------------------------------|
-| Язык программирования  | TypeScript                                           |
-| Архитектура            | SPA                                                  |
-| Инструменты разработки | ESLint, Prettier, Husky, Jest или Vitest             |
-| Бэкенд                 | [CommerceTools](https://commercetools.com) 🌐        |
-
-### ❗ Ограничения
-
-- ✅ Обязателен: **TypeScript**
-- ❌ Запрещены: **jQuery**, готовые шаблоны UI, sunrise-данные от CommerceTools
-
-В проекте определены следующие npm-скрипты:
-
-| Скрипт              | Назначение                                                                 |
-|---------------------|----------------------------------------------------------------------------|
-| `npm run dev`       | Запускает проект в режиме разработки с помощью Vite                       |
-| `npm run build`     | Компилирует TypeScript и создаёт production-сборку через Vite             |
-| `npm run preview`   | Предпросмотр production-сборки локально через встроенный сервер Vite      |
-| `npm run prepare`   | Устанавливает Git-хуки с помощью Husky (например, `pre-commit`)           |
-| `npm run test`      | Запускает все тесты с помощью Vitest                                      |
-| `npm run test:watch`| Запускает Vitest в режиме слежения за файлами                             |
-| `npm run lint`      | Проверяет код на ошибки и стилистические проблемы с помощью ESLint        |
-| `npm run format`    | Форматирует код с использованием Prettier            
-
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+});
+```
