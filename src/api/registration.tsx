@@ -3,20 +3,22 @@ export default async function registrationApi() {
     const formRegistration = document.querySelector('.form-registration');
     if (formRegistration instanceof HTMLFormElement) {
       const formData = new FormData(formRegistration);
-      const firstName = `${formData.get('firstName')}`.trim();
-      const lastName = `${formData.get('lastName')}`.trim();
-      const email = `${formData.get('email')}`.trim();
-      const password = `${formData.get('password')}`.trim();
-      const streetName = `${formData.get('streetName')}`.trim();
-      const streetNumber = `${formData.get('streetNumber')}`.trim();
-      const postalCode = `${formData.get('postalCode')}`.trim();
-      const city = `${formData.get('city')}`.trim();
-      const country = `${formData.get('country')}`.trim();
+      const firstName = formData.get('firstName');
+      const lastName = formData.get('lastName');
+      const email = formData.get('email');
+      const dateOfBirth = formData.get('dateOfBirth');
+      const password = formData.get('password');
+      const streetName = formData.get('streetName');
+      const streetNumber = formData.get('streetNumber');
+      const postalCode = formData.get('postalCode');
+      const city = formData.get('city');
+      const country = formData.get('country');
       const fetchObj = {
         firstName: firstName,
         lastName: lastName,
         email: email,
         password: password,
+        dateOfBirth: dateOfBirth,
         addresses: [
           {
             streetName: streetName,
@@ -27,6 +29,7 @@ export default async function registrationApi() {
           },
         ],
       };
+      console.log(fetchObj);
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
         {
