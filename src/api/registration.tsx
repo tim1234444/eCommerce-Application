@@ -13,6 +13,7 @@ export default async function registrationApi() {
       const postalCode = formData.get('postalCode');
       const city = formData.get('city');
       const country = formData.get('country');
+      const isDefaultShippingAddress = formData.get('defaultShippingAddress');
       const fetchObj = {
         firstName: firstName,
         lastName: lastName,
@@ -29,7 +30,11 @@ export default async function registrationApi() {
           },
         ],
       };
-      console.log(fetchObj);
+      if (
+        isDefaultShippingAddress !== null &&
+        isDefaultShippingAddress === 'on'
+      )
+        Object.assign(fetchObj, { defaultShippingAddress: 0 });
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
         {

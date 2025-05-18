@@ -101,6 +101,14 @@ export default function RegistrationPage() {
             <option value="RU">RU</option>
           </select>
         </label>
+        <label>
+          <input
+            type="checkbox"
+            name="defaultShippingAddress"
+            id="defaultShippingAddress"
+          />
+          Set as default address
+        </label>
       </fieldset>
       <button type="submit">Registration</button>
     </form>
