@@ -3,6 +3,7 @@ import { RedirectIfAuth } from './components/RedirectIfAuth';
 import LoginPage from './pages/loginPage';
 import MainPage from './pages/mainPage';
 import RegistrationPage from './pages/registration';
+import NotFound from './pages/NotFound';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           }
         />
         <Route path="/" element={<MainPage />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   );
