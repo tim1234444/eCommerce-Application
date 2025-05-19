@@ -34,14 +34,16 @@ export default function Layout({ children }: IChildren) {
           <ul className="nav-links">
             {!isLogin && (
               <>
-              <li>
-                <Link to="/registration">Registration</Link>
-              </li>
-              <li>
-                  <Link to="/login" className="auth-link">
-                    Autorisation
+                <li>
+                  <Link to="/autorisation" className="auth-link">
+                    🔑 Войти
                   </Link>
-              </li>
+                </li>
+                <li>
+                  <Link to="/registration" className="auth-link">
+                    ➕ Регистрация
+                  </Link>
+                </li>
               </>
             )}
             <li>
