@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import './Layout.css';
 interface IChildren {
   children: ReactNode;
 }
@@ -22,14 +23,24 @@ export default function Layout({ children }: IChildren) {
 
   return (
     <>
-      <header>
-        <nav>
-          {isLogin && <button onClick={handleLogout}>Выйти</button>}
-          <ul>
+      <header className="header">
+        <nav className="nav">
+          <Link to="/" className="logo">
+            🛒 eCommerce
+          </Link>
+          {isLogin && <button onClick={handleLogout}>Logout</button>}
+          <ul className="nav-links">
             {!isLogin && (
+              <>
               <li>
                 <Link to="/registration">Registration</Link>
               </li>
+              <li>
+                  <Link to="/login" className="auth-link">
+                    Autorisation
+                  </Link>
+              </li>
+              </>
             )}
             <li>
               <Link to="/">Main</Link>
@@ -37,8 +48,10 @@ export default function Layout({ children }: IChildren) {
           </ul>
         </nav>
       </header>
+
       <main>{children}</main>
-      <footer>
+
+      <footer className="footer">
         <p>eCommerce 2025.</p>
       </footer>
     </>
