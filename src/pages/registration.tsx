@@ -10,7 +10,7 @@ export default function RegistrationPage() {
   }, [currentState, navigate]);
   return (
     <div>
-      <Link className="button-navigation" to="/login">
+      <Link className="button-navigation" to="/autorisation">
         To the login page
       </Link>
       <form

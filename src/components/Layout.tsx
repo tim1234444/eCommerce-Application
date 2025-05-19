@@ -4,7 +4,7 @@ interface IChildren {
   children: ReactNode;
 }
 const isLogin = localStorage.getItem('access_token');
-console.log(isLogin)
+console.log(isLogin);
 export default function Layout({ children }: IChildren) {
   const [isLogin, setIsLogin] = useState<boolean>(false);
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ export default function Layout({ children }: IChildren) {
           <ul>
             {!isLogin && (
               <li>
-                <Link to="/autorisation">Authorization</Link>
+                <Link to="/registration">Registration</Link>
               </li>
             )}
             <li>
