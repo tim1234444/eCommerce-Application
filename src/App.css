@@ -55,3 +55,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.button-navigation {
+  display: block;
+  margin-bottom: 20px;
+}
