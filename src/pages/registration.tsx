@@ -1,6 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import SubmitButton from '../components/submitButton';
 import registrationApi from '../api/registration';
+import { useState, useEffect } from 'react';
 export default function RegistrationPage() {
+  const navigate = useNavigate();
+  const [currentState, setCurrentState] = useState<boolean>(false);
+  useEffect(() => {
+    if (currentState === true) navigate('/shop', { replace: true });
+  }, [currentState, navigate]);
   return (
     <div>
       <Link className="button-navigation" to="/login">
@@ -8,8 +15,7 @@ export default function RegistrationPage() {
       </Link>
       <form
         className="form-registration"
-        action={registrationApi}
-        method="post"
+        action={(e) => registrationApi(e, currentState, setCurrentState)}
       >
         <fieldset>
           <legend>Contacts:</legend>
@@ -22,6 +28,7 @@ export default function RegistrationPage() {
               minLength={2}
               maxLength={10}
               title="Latin letters, minimum length (2 characters) and maximum length (10 characters)."
+              autoComplete="off"
               required
             />
           </label>
@@ -34,6 +41,7 @@ export default function RegistrationPage() {
               minLength={2}
               maxLength={10}
               title="Latin letters, minimum length (2 characters) and maximum length (10 characters)."
+              autoComplete="off"
               required
             />
           </label>
@@ -42,7 +50,14 @@ export default function RegistrationPage() {
             <input type="date" name="dateOfBirth" id="dateOfBirth" required />
           </label>
           <label>
-            Email: <input type="email" name="email" id="email" required />
+            Email:{' '}
+            <input
+              type="email"
+              name="email"
+              id="email"
+              autoComplete="off"
+              required
+            />
           </label>
           <label>
             Password:{' '}
@@ -51,6 +66,7 @@ export default function RegistrationPage() {
               name="password"
               id="password"
               pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}"
+              autoComplete="off"
               title="The password must contain at least one letter, one digit and be at least 8 characters long."
               required
             />
@@ -63,10 +79,11 @@ export default function RegistrationPage() {
             <input
               type="text"
               name="streetName"
-              pattern="[A-Za-zА]{2,10}"
+              pattern="[A-Za-zА]{2,20}"
               minLength={2}
-              maxLength={10}
+              maxLength={20}
               title="Latin letters, minimum length (2 characters) and maximum length (10 characters)."
+              autoComplete="off"
               required
             />
           </label>
@@ -77,6 +94,7 @@ export default function RegistrationPage() {
               name="streetNumber"
               pattern="\d{1,5}([A-Za-z]?)"
               title="Enter the house number (up to 5 digits and, if necessary, one letter)"
+              autoComplete="off"
               required
             />
           </label>
@@ -87,6 +105,7 @@ export default function RegistrationPage() {
               name="postalCode"
               pattern="\d{5}(-\d{4})?"
               title="Enter the zip code in the format XXXXX or XXXXX-XXXX"
+              autoComplete="off"
               required
             />
           </label>
@@ -99,6 +118,7 @@ export default function RegistrationPage() {
               maxLength={50}
               pattern="[A-Za-zА\s-]{2,50}"
               title="Enter a city name consisting of letters (2-50 characters), spaces, and hyphens."
+              autoComplete="off"
               required
             />
           </label>
@@ -119,7 +139,7 @@ export default function RegistrationPage() {
             Set as default address
           </label>
         </fieldset>
-        <button type="submit">Registration</button>
+        <SubmitButton />
       </form>
     </div>
   );
