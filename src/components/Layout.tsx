@@ -1,6 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Layout.css';
+import logoImage from '/public/lol-ecommerce.jpg';
+
 interface IChildren {
   children: ReactNode;
 }
@@ -26,7 +28,7 @@ export default function Layout({ children }: IChildren) {
       <header className="header">
         <nav className="nav">
           <Link to="/" className="logo">
-            🛒 eCommerce
+            <img src={logoImage} alt="eCommerce Logo" className="logo-image" />
           </Link>
           {isLogin && <button onClick={handleLogout}>Logout</button>}
           <ul className="nav-links">
