@@ -6,7 +6,7 @@ export default function RegistrationPage() {
   const navigate = useNavigate();
   const [currentState, setCurrentState] = useState<boolean>(false);
   useEffect(() => {
-    if (currentState === true) navigate('/shop', { replace: true });
+    if (currentState === true) navigate('/', { replace: true });
   }, [currentState, navigate]);
   return (
     <div>
