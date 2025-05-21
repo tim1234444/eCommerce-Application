@@ -1,0 +1,16 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.logo {
+  margin-right: auto;
+}
+
+.logo img {
+  max-height: 50px;
+  max-width: 100px;
+  width: 100%;
+}
