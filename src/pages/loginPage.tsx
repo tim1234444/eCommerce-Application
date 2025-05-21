@@ -1,14 +1,12 @@
-
-import Layout from "../components/Layout";
-import LoginForm from "../components/LoginForm/LoginForm";
-
+import Layout from '../components/Layout';
+import LoginForm from '../components/LoginForm/LoginForm';
 
 function LoginPage() {
   return (
     <Layout>
-      <h1>Вход</h1>
+      <h1>Authorisation</h1>
       <LoginForm />
-   </Layout>
+    </Layout>
   );
 }
 

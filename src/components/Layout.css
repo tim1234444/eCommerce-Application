@@ -3,12 +3,6 @@
   border-bottom: 1px solid #ccc;
 }
 
-.nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 .logo {
   text-decoration: none;
   font-weight: bold;
