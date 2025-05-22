@@ -116,7 +116,7 @@ export default function RegistrationPage() {
               name="city"
               minLength={2}
               maxLength={50}
-              pattern="[A-Za-zА\s-]{2,50}"
+              pattern="[A-Za-zА-Яа-я -]{2,50}"
               title="Enter a city name consisting of letters (2-50 characters), spaces, and hyphens."
               autoComplete="off"
               required
