@@ -14,7 +14,7 @@ export default function Navigation() {
   const handleLogout = () => {
     localStorage.removeItem('access_token');
     setIsLogin(false);
-    navigate('/autorisation');
+    navigate('/authorization');
   };
   return (
     <nav className="nav">
@@ -26,7 +26,7 @@ export default function Navigation() {
         {!isLogin && (
           <>
             <li>
-              <Link to="/autorisation" className="auth-link">
+              <Link to="/authorization" className="auth-link">
                 🔑 Authorisation
               </Link>
             </li>

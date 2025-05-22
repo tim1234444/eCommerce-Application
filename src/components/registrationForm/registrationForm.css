@@ -1,0 +1,27 @@
+.form-registration {
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.form-registration fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-registration fieldset:last-of-type {
+  margin-bottom: 20px;
+}
+
+.form-registration fieldset label {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button-navigation {
+  display: inline-flex;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}

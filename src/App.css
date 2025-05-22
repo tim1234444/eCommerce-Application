@@ -11,6 +11,7 @@
 
 main {
   flex-grow: 2;
+  padding: 20px 0;
 }
 
 @keyframes logo-spin {
@@ -34,24 +35,4 @@ main {
 
 .read-the-docs {
   color: #7c7b7b;
-}
-
-.form-registration fieldset {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-registration fieldset:last-of-type {
-  margin-bottom: 20px;
-}
-
-.form-registration fieldset label {
-  display: flex;
-  justify-content: space-between;
-}
-
-.button-navigation {
-  display: block;
-  margin-bottom: 20px;
 }

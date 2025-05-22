@@ -2,8 +2,8 @@ import './App.css';
 import { RedirectIfAuth } from './components/RedirectIfAuth';
 import LoginPage from './pages/loginPage';
 import MainPage from './pages/mainPage';
-import RegistrationPage from './pages/registration';
-import NotFound from './pages/NotFound';
+import RegistrationPage from './pages/registrationPage';
+import NotFound from './pages/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/autorisation"
+          path="/authorization"
           element={
             <RedirectIfAuth>
               <LoginPage />
