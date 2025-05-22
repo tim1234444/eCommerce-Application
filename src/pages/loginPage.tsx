@@ -4,7 +4,6 @@ import LoginForm from '../components/loginForm/LoginForm';
 function LoginPage() {
   return (
     <Layout>
-      <h1>Authorisation</h1>
       <LoginForm />
     </Layout>
   );
