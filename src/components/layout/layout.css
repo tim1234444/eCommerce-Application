@@ -26,6 +26,9 @@
 
 main {
   background-image: url('/src/assets/medium-vecteezy_ecstatic-young-man-embracing-new-car-imagining-purchase-at_27184857_medium.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
 .footer {

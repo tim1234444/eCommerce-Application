@@ -1,6 +1,6 @@
 import './Layout.css';
 import type { ReactNode } from 'react';
-import Navigation from './navigation/Navigation';
+import Navigation from '../navigation/Navigation';
 
 interface IChildren {
   children: ReactNode;

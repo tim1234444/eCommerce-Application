@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import RegistrationForm from '../components/registrationForm/RegistrationFrom';
 import { useState, useEffect } from 'react';
-import Layout from '../components/Layout';
+import Layout from '../components/layout/Layout';
 export default function RegistrationPage() {
   const navigate = useNavigate();
   const [currentState, setCurrentState] = useState<boolean>(false);
