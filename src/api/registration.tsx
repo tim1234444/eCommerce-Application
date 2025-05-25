@@ -1,10 +1,30 @@
+async function getToken() {
+  const url = 'https://auth.europe-west1.gcp.commercetools.com/oauth/token';
+  const credentials = btoa(
+    `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
+  );
+
+  await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `grant_type=client_credentials&scope=${import.meta.env.VITE_SCOPES}`, // Остальные параметры запроса
+  })
+    .then((response) => response.json())
+    .then((data) =>
+      localStorage.setItem('access_token', `${data.access_token}`),
+    );
+}
+
 export default async function registrationApi(
   formData: FormData,
   currentState: boolean,
   setCurrentState: (currentState: boolean) => void,
 ) {
   try {
-    console.log(currentState);
+    await getToken();
     const formRegistration = document.querySelector('.form-registration');
     if (formRegistration instanceof HTMLFormElement) {
       const firstName = formData.get('firstName');
@@ -40,20 +60,24 @@ export default async function registrationApi(
       )
         Object.assign(fetchObj, { defaultShippingAddress: 0 });
       console.log(fetchObj);
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
-        {
-          method: 'POST',
-          body: JSON.stringify(fetchObj),
-          headers: {
-            Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${import.meta.env.VITE_ACCESS_TOKEN}`,
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
+          {
+            method: 'POST',
+            body: JSON.stringify(fetchObj),
+            headers: {
+              Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${localStorage.getItem('access_token')}`,
+            },
           },
-        },
-      );
-      if (response.status === 201 && response.ok === true) {
+        );
         console.log(response, response.status, response.ok);
-        setCurrentState((currentState = true));
-        console.log(currentState);
+        if (response.status === 201 && response.ok === true) {
+          console.log(response, response.status, response.ok);
+          setCurrentState((currentState = true));
+          console.log(currentState);
+        }
       }
     }
   } catch (error) {
