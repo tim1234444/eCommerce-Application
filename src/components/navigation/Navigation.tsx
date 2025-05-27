@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
+import getProductTypeList from '../../api/getProductTypeList';
 import './Navigation.css';
 
 export default function Navigation() {
@@ -18,6 +19,7 @@ export default function Navigation() {
   };
   return (
     <nav className="nav">
+      <button onClick={getProductTypeList}>List</button>
       <Link to="/" className="logo">
         <img src={logo} alt="eCommerce Logo" />
       </Link>
