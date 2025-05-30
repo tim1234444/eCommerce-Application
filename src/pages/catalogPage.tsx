@@ -6,6 +6,7 @@ export default function CatalogPage() {
   useEffect(() => {
     const p = getProductsList();
     p.then(async (data) => {
+      console.log(data);
       setProducts(data);
     });
   }, []);
@@ -16,10 +17,20 @@ export default function CatalogPage() {
         const {
           id,
           masterData: {
-            current: { name },
+            current: {
+              name,
+              description,
+              masterVariant: { images },
+            },
           },
         } = product;
-        return <li key={id}>{`${name['en-US']}`}</li>;
+        return (
+          <li key={id}>
+            <h3>{`${name['en-US']}`}</h3>
+            <img src={images[0]['url']} width={200} alt="" />
+            <p>{`${description['en-US']}`}</p>
+          </li>
+        );
       })}
     </ul>
   );
