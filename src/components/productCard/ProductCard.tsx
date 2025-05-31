@@ -15,6 +15,12 @@ export default function ProductCard({
       centAmount: string;
       currencyCode: string;
     };
+    discounted: {
+      value: {
+        centAmount: string;
+        currencyCode: string;
+      };
+    };
   };
 }) {
   return (
@@ -32,6 +38,13 @@ export default function ProductCard({
             {`Price: `}
             {prices.value.centAmount}
             {prices.value.currencyCode}
+          </p>
+        )}
+        {prices.discounted && (
+          <p>
+            {`Discount Price: `}
+            {prices.discounted.value.centAmount}
+            {prices.discounted.value.currencyCode}
           </p>
         )}
         <p className="item-list-description">{description['en-US']}</p>

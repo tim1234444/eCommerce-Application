@@ -19,3 +19,7 @@
     overflow: hidden;
   }
 }
+
+.item-list:hover {
+  background-color: #c0c0c0;
+}
