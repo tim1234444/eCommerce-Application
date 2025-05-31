@@ -11,7 +11,7 @@ export default async function getProductsList() {
     );
     if (response.status === 200 && response.ok === true) {
       const data = await response.json();
-      console.log(response);
+      console.log(response, data.results);
       return data.results;
     } else {
       const err = new Error(
