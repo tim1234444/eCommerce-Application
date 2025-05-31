@@ -35,14 +35,14 @@ export default function ProductCard({
         />
         {prices && (
           <p>
-            {`Price: `}
+            {`Current Price: `}
             {prices.value.centAmount}
             {prices.value.currencyCode}
           </p>
         )}
         {prices.discounted && (
-          <p>
-            {`Discount Price: `}
+          <p className="item-list-discount">
+            {`Current discount price: `}
             {prices.discounted.value.centAmount}
             {prices.discounted.value.currencyCode}
           </p>

@@ -18,6 +18,10 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  & .item-list-discount {
+    color: #ff0000;
+  }
 }
 
 .item-list:hover {
