@@ -1,4 +1,4 @@
-async function getToken() {
+export async function getToken() {
   const url = 'https://auth.europe-west1.gcp.commercetools.com/oauth/token';
   const credentials = btoa(
     `${import.meta.env.VITE_CLIENT_ID}:${import.meta.env.VITE_CLIENT_SECRET}`,
