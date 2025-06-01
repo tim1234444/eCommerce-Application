@@ -5,6 +5,7 @@ import MainPage from './pages/mainPage';
 import RegistrationPage from './pages/registrationPage';
 import NotFound from './pages/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProfilePage from './pages/profilePage';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         />
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );
