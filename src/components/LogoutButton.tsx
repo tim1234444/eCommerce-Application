@@ -4,7 +4,7 @@ export default function LogoutButton() {
   const navigate = useNavigate();
 
   function handleLogout() {
-    localStorage.removeItem('access_token');
+    document.cookie = `access_token=;expires=${new Date(0)}`;
     navigate('/');
   }
 
