@@ -26,7 +26,7 @@ export default function ProductCard({
   return (
     <li key={Number(id)} data-id={id} className="item-list">
       <a href="#">
-        <h3>{name['en-US']}</h3>
+        <h4>{name['en-US']}</h4>
         <img
           src={images[0]['url']}
           width={200}
