@@ -5,6 +5,7 @@ import MainPage from './pages/mainPage';
 import RegistrationPage from './pages/registrationPage';
 import NotFound from './pages/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ProductItem from './pages/Product_Item';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             </RedirectIfAuth>
           }
         />
+        <Route path="/item/:productId" element={<ProductItem />} />
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
