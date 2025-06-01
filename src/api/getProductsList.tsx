@@ -1,3 +1,5 @@
+import getCookie from './getCoockie';
+
 export default async function getProductsList() {
   try {
     const response: Response = await fetch(
@@ -5,7 +7,7 @@ export default async function getProductsList() {
       {
         method: 'GET',
         headers: {
-          Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${localStorage.getItem('access_token')}`,
+          Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
         },
       },
     );

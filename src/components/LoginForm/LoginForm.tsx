@@ -50,7 +50,7 @@ const LoginForm = () => {
     if (!emailErr && !passwordErr) {
       const data = fetchAccessToken(email, password, setErrorMessage);
       data.then((data) => {
-        localStorage.setItem('access_token', data.access_token);
+        document.cookie = `access_token=${data.access_token};max-age=172800`;
         if (!data.error) {
           navigate('/', { replace: true });
         }
