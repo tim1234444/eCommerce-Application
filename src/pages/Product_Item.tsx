@@ -4,7 +4,7 @@ import Layout from '../components/layout/Layout';
 import ProductNavSlide from '../components/ProductsSlide/ProductNavSlide';
 import ProductSlide from '../components/ProductsSlide/ProductSlide';
 import '../ProductItem.css';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, EffectFade, Navigation } from 'swiper/modules';
@@ -215,6 +215,9 @@ export default function ProductItem() {
               </div>
             </div>
           </div>
+          <Link to="/catalog" className="product-main-back">
+            Back to catalog
+          </Link>
         </section>
       ) : (
         ''

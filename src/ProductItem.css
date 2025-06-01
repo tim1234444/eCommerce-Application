@@ -5,15 +5,18 @@
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
-.product-main{
+.product-main {
+  max-width: 800px;
+  width: 100%;
   padding: 20px;
-  margin: 0 10px;
+  margin: 0 auto;
   background-color: white;
   border-radius: 24px;
 }
 .product-main__body {
   display: -ms-grid;
   display: grid;
+  align-items: center;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
@@ -22,6 +25,7 @@
   gap: 2.8125rem;
   margin-bottom: 5rem;
 }
+
 .product-main__slider {
   min-width: 0;
   display: -webkit-box;
@@ -33,9 +37,22 @@
   gap: 0.9375rem;
   position: relative;
 }
+
 .product-main__wrap {
   display: none;
 }
+
+.product-main-back {
+  display: block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: #c0c0c0;
+}
+
+.product-main-back:hover {
+  background-color: #c0c0c0c8;
+}
+
 .slider-nav {
   height: 100%;
 }
