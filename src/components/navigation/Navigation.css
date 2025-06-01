@@ -3,6 +3,26 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  & a {
+    display: block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #c0c0c0;
+  }
+
+  & a:hover {
+    background-color: #c0c0c0c8;
+  }
 }
 
 .logo {

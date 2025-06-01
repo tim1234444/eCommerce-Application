@@ -1,0 +1,14 @@
+.advantages {
+  background-color: #ffffff;
+  opacity: 0.7;
+  width: fit-content;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.advantages-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}

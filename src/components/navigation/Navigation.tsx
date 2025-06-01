@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-import getProductsList from '../../api/getProductsList';
 import './Navigation.css';
 
 export default function Navigation() {
@@ -19,11 +18,10 @@ export default function Navigation() {
   };
   return (
     <nav className="nav">
-      <button onClick={getProductsList}>List</button>
       <Link to="/" className="logo">
         <img src={logo} alt="eCommerce Logo" />
       </Link>
-      {isLogin && <button onClick={handleLogout}>Logout</button>}
+
       <ul className="nav-links">
         {!isLogin && (
           <>
@@ -42,6 +40,10 @@ export default function Navigation() {
         <li>
           <Link to="/">Main</Link>
         </li>
+        <li>
+          <Link to="/catalog">Catalog</Link>
+        </li>
+        <li>{isLogin && <button onClick={handleLogout}>Logout</button>}</li>
       </ul>
     </nav>
   );
