@@ -39,7 +39,7 @@ interface Product {
 }
 
 export default function ProductItem() {
-  const { productId } = useParams(); // productId будет "номер товара"
+  const { productId } = useParams<string>(); // productId будет "номер товара"
 
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
@@ -58,9 +58,11 @@ export default function ProductItem() {
     : '';
   useEffect(() => {
     async function fetchData() {
-      const result = await getProduct(productId);
-      setData(result);
-      setIsLoading(true);
+      if (productId) {
+        const result = await getProduct(productId);
+        setData(result);
+        setIsLoading(true);
+      }
     }
 
     fetchData();

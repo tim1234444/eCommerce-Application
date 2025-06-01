@@ -4,7 +4,7 @@ export default function MainPage() {
   return (
     <>
       <Layout>
-        <p>Main Page</p>
+        <p>eCommerce</p>
       </Layout>
     </>
   );
