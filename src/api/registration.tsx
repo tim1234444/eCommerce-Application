@@ -79,7 +79,7 @@ export default async function registrationApi(
           localStorage.setItem('customerId', data.customer.id);
           // console.log(response, response.status, response.ok, response.json());
           setCurrentState((currentState = true));
-          // console.log(currentState);
+          console.log(currentState);
         }
       }
     }

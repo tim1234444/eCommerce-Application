@@ -1,4 +1,9 @@
-export default function InputdateOfBirth() {
+interface InputNameProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputdateOfBirth({ value, onChange }: InputNameProps) {
   return (
     <label>
       Date of birth:{' '}
@@ -8,6 +13,8 @@ export default function InputdateOfBirth() {
         id="dateOfBirth"
         max="2013-12-31"
         title="over 13 years old"
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

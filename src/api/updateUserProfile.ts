@@ -1,3 +1,4 @@
+import type { CustomerUpdateAction } from '@commercetools/platform-sdk';
 interface Address {
   id: string;
   streetName: string;
@@ -19,12 +20,6 @@ interface Customer {
   defaultShippingAddressId?: string;
   defaultBillingAddressId?: string;
 }
-
-type CustomerUpdateAction =
-  | { action: 'setFirstName'; firstName: string }
-  | { action: 'setLastName'; lastName: string }
-  | { action: 'changeEmail'; email: string }
-  | { action: 'setDateOfBirth'; dateOfBirth: string };
 
 export async function updateUserProfileCT(
   id: string,
