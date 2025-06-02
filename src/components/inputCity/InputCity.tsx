@@ -1,6 +1,11 @@
 import validate from '../../api/validate';
 
-export default function InputCity() {
+interface InputNameProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputCity({ value, onChange }: InputNameProps) {
   return (
     <label>
       City:{' '}
@@ -13,6 +18,8 @@ export default function InputCity() {
         title="Enter a city name consisting of letters (1-20 characters), spaces, and hyphens."
         autoComplete="off"
         onInput={validate}
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

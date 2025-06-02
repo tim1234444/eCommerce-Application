@@ -8,6 +8,10 @@ import InputName from '../../components/inputName/InputName';
 import InputdateOfBirth from '../../components/inputdateOfBirth/inputdateOfBirth';
 import InputEmail from '../../components/inputEmail/InputEmail';
 import InputLastName from '../../components/inputLastName/InputLastName';
+import InputStreetName from '../../components/inputStreetName/InputStreetName';
+import InputStreetNumber from '../../components/inputStreetNumber/InputStreetNumber';
+import InputCity from '../../components/inputCity/InputCity';
+import InputPostalCode from '../../components/postalCode/InputPostalCode';
 
 interface Address {
   id: string;
@@ -44,6 +48,16 @@ const ProfilePage: React.FC = () => {
     dateOfBirth: '',
   });
   const [message, setMessage] = useState<string | null>(null);
+
+  const [editingAddressId, setEditingAddressId] = useState<string | null>(null);
+  const [editedAddress, setEditedAddress] = useState<Address>({
+    id: '',
+    streetName: '',
+    streetNumber: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  });
 
   useEffect(() => {
     async function fetchProfile() {
@@ -160,6 +174,63 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  const startEditAddress = (addr: Address) => {
+    setEditingAddressId(addr.id);
+    setEditedAddress({ ...addr });
+  };
+
+  const handleAddressChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = e.target;
+    setEditedAddress((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAddressSubmit = async (e: FormEvent, addressId: string) => {
+    e.preventDefault();
+    if (!userData) return;
+
+    const actions: CustomerUpdateAction[] = [
+      {
+        action: 'changeAddress',
+        addressId,
+        address: {
+          streetName: editedAddress.streetName,
+          streetNumber: editedAddress.streetNumber?.toString(),
+          city: editedAddress.city,
+          postalCode: editedAddress.postalCode,
+          country: editedAddress.country,
+        },
+      },
+    ];
+
+    try {
+      const updatedUser = await updateUserProfileCT(
+        userData.id,
+        userData.version,
+        actions,
+      );
+
+      setUserData({
+        id: updatedUser.id,
+        version: updatedUser.version,
+        firstName: updatedUser.firstName ?? '',
+        lastName: updatedUser.lastName ?? '',
+        email: updatedUser.email ?? '',
+        dateOfBirth: updatedUser.dateOfBirth ?? '',
+        addresses: updatedUser.addresses ?? [],
+        defaultShippingAddressId: updatedUser.defaultShippingAddressId,
+      });
+
+      setEditingAddressId(null);
+      setMessage('Address updated successfully');
+    } catch (err: unknown) {
+      setMessage(
+        err instanceof Error ? `Ошибка: ${err.message}` : 'Неизвестная ошибка',
+      );
+    }
+  };
+
   if (loading) return <p>Loading data...</p>;
   if (error) return <p className="error-text">Error: {error}</p>;
   if (!userData) return <p>User not found</p>;
@@ -233,7 +304,7 @@ const ProfilePage: React.FC = () => {
       <section className="addresses-section">
         <h2>Address:</h2>
         {userData.addresses && userData.addresses.length > 0 ? (
-          userData.addresses.map((addr, index) => {
+          userData.addresses.map((addr) => {
             const isDefaultBilling = userData.billingAddressIds?.includes(
               addr.id,
             );
@@ -242,30 +313,78 @@ const ProfilePage: React.FC = () => {
 
             return (
               <div
-                key={index}
+                key={addr.id}
                 className={`address-card ${isDefaultBilling ? 'billing' : isDefaultShipping ? 'shipping' : ''}`}
               >
-                <p>
-                  Street name: {addr.streetName} <br />
-                  Street number: {addr.streetNumber} <br />
-                  City: {addr.city} <br />
-                  {addr.state && (
-                    <>
-                      State: {addr.state} <br />
-                    </>
-                  )}
-                  Postal Code: {addr.postalCode} <br />
-                  Country: {addr.country}
-                </p>
-                {isDefaultBilling && (
-                  <span className="label billing-label">
-                    Default Billing Address
-                  </span>
-                )}
-                {isDefaultShipping && (
-                  <span className="label shipping-label">
-                    Default Shipping Address
-                  </span>
+                {editingAddressId === addr.id ? (
+                  <form onSubmit={(e) => handleAddressSubmit(e, addr.id)}>
+                    <InputStreetName
+                      value={editedAddress.streetName}
+                      onChange={handleAddressChange}
+                    />
+                    <br />
+                    <InputStreetNumber
+                      value={editedAddress.streetNumber}
+                      onChange={handleAddressChange}
+                    />
+                    <br />
+                    <InputCity
+                      value={editedAddress.city}
+                      onChange={handleAddressChange}
+                    />
+                    <br />
+                    <InputPostalCode
+                      value={editedAddress.postalCode}
+                      onChange={handleAddressChange}
+                    />
+                    <br />
+                    Country:
+                    <select
+                      name="country"
+                      value={editedAddress.country}
+                      onChange={handleAddressChange}
+                      required
+                    >
+                      <option value="US">US</option>
+                      <option value="GB">GB</option>
+                      <option value="RU">RU</option>
+                    </select>
+                    <br />
+                    <button type="submit">Save</button>
+                    <button
+                      type="button"
+                      onClick={() => setEditingAddressId(null)}
+                    >
+                      Cancel
+                    </button>
+                  </form>
+                ) : (
+                  <>
+                    <p>
+                      Street name: {addr.streetName} <br />
+                      Street number: {addr.streetNumber} <br />
+                      City: {addr.city} <br />
+                      {addr.state && (
+                        <>
+                          State: {addr.state} <br />
+                        </>
+                      )}
+                      Postal Code: {addr.postalCode} <br />
+                      Country: {addr.country}
+                    </p>
+                    {isDefaultBilling && (
+                      <span className="label billing-label">
+                        Default Billing Address
+                      </span>
+                    )}
+                    {isDefaultShipping && (
+                      <span className="label shipping-label">
+                        Default Shipping Address
+                      </span>
+                    )}{' '}
+                    <br />
+                    <button onClick={() => startEditAddress(addr)}>Edit</button>
+                  </>
                 )}
               </div>
             );

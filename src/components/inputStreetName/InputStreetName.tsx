@@ -1,5 +1,11 @@
 import validate from '../../api/validate';
-export default function InputStreetName() {
+
+interface InputNameProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputStreetName({ value, onChange }: InputNameProps) {
   return (
     <label>
       Street name:{' '}
@@ -11,6 +17,8 @@ export default function InputStreetName() {
         title="Latin letters, minimum length (2 characters) and maximum length (10 characters)."
         autoComplete="off"
         onInput={validate}
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

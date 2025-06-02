@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import registrationApi from '../../api/registration';
 import InputStreetName from '../inputStreetName/InputStreetName';
 import InputCity from '../inputCity/InputCity';
@@ -10,6 +11,7 @@ import InputdateOfBirth from '../inputdateOfBirth/inputdateOfBirth';
 import InputPostalCode from '../postalCode/InputPostalCode';
 import SubmitButton from '../submitButton';
 import './registrationForm.css';
+
 export default function RegistrationForm({
   currentState,
   setCurrentState,
@@ -18,6 +20,27 @@ export default function RegistrationForm({
   setCurrentState: (currentState: boolean) => void;
 }) {
   console.log(currentState);
+
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    email: '',
+    password: '',
+    postalCode: '',
+    city: '',
+    streetName: '',
+    streetNumber: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
   return (
     <form
       className="form-registration"
@@ -25,18 +48,24 @@ export default function RegistrationForm({
     >
       <fieldset>
         <legend>Contacts:</legend>
-        <InputName />
-        <InputLastName />
-        <InputdateOfBirth />
-        <InputEmail />
+        <InputName value={formData.firstName} onChange={handleChange} />
+        <InputLastName value={formData.lastName} onChange={handleChange} />
+        <InputdateOfBirth
+          value={formData.dateOfBirth}
+          onChange={handleChange}
+        />
+        <InputEmail value={formData.email} onChange={handleChange} />
         <InputPassword />
       </fieldset>
       <fieldset>
         <legend>Adress:</legend>
-        <InputPostalCode />
-        <InputCity />
-        <InputStreetName />
-        <InputStreetNumber />
+        <InputPostalCode value={formData.postalCode} onChange={handleChange} />
+        <InputCity value={formData.city} onChange={handleChange} />
+        <InputStreetName value={formData.streetName} onChange={handleChange} />
+        <InputStreetNumber
+          value={formData.streetNumber}
+          onChange={handleChange}
+        />
         <label>
           Country:
           <select name="country" id="country" required>
