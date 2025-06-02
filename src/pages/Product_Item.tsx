@@ -5,7 +5,7 @@ import ProductNavSlide from '../components/ProductsSlide/ProductNavSlide';
 import ProductSlide from '../components/ProductsSlide/ProductSlide';
 import '../ProductItem.css';
 
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Swiper as SwiperType } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, EffectFade, Navigation } from 'swiper/modules';
@@ -57,7 +57,8 @@ export default function ProductItem() {
   const [isOpen, setIsOpen] = useState(false);
   const sliderRef = useRef<SwiperRef | null>(null);
   const price = data?.masterData.current.masterVariant.prices?.[2]?.value;
-  const discPrice = data?.masterData.current.masterVariant.prices?.[2]?.discounted?.value;
+  const discPrice =
+    data?.masterData.current.masterVariant.prices?.[2]?.discounted?.value;
   const formattedPrice = price
     ? (price.centAmount / 10 ** price.fractionDigits).toFixed(
         price.fractionDigits,
@@ -87,7 +88,6 @@ export default function ProductItem() {
     }
   };
 
- 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -217,7 +217,7 @@ export default function ProductItem() {
                 <h2>{formattedPrice} USD</h2>
 
                 {discPrice && (
-                  <p  className="item-list-discount">
+                  <p className="item-list-discount">
                     {`Current discount price: `}
                     {(discPrice.centAmount / 10 ** 2).toFixed(2)}
                     USD
@@ -233,6 +233,9 @@ export default function ProductItem() {
               </div>
             </div>
           </div>
+          <Link to="/catalog" className="product-main-back">
+            Back to catalog
+          </Link>
         </section>
       ) : (
         ''
