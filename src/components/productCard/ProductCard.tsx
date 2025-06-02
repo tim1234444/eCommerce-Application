@@ -40,13 +40,14 @@ export default function ProductCard({
             {prices.value.currencyCode}
           </p>
         )}
-        {prices.discounted && (
+        {prices?.discounted && (
           <p className="item-list-discount">
             {`Current discount price: `}
             {prices.discounted.value.centAmount}
             {prices.discounted.value.currencyCode}
           </p>
         )}
+
         <p className="item-list-description">{description['en-US']}</p>
       </a>
     </li>

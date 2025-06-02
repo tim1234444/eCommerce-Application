@@ -5,6 +5,9 @@
   -webkit-box-sizing: content-box;
   box-sizing: content-box;
 }
+.item-list-discount{
+  color :red;
+}
 .product-main {
   max-width: 800px;
   width: 100%;

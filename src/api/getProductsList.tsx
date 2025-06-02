@@ -1,9 +1,13 @@
 import getCookie from './getCoockie';
 
-export default async function getProductsList() {
+export default async function getProductsList(sortParam = '') {
   try {
+    const baseUrl = `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/product-projections/search`;
+    const sortQuery = sortParam ? `?sort=${encodeURIComponent(sortParam)}` : '';
+    const url = `${baseUrl}${sortQuery}`;
+
     const response: Response = await fetch(
-      `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/products`,
+      url,
       {
         method: 'GET',
         headers: {
