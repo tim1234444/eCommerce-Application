@@ -47,6 +47,9 @@ export default function Navigation() {
               <Link to="/catalog">Catalog</Link>
             </li>
             <li>
+              <Link to="/profile">Profile</Link>
+            </li>
+            <li>
               <button onClick={handleLogout}>Logout</button>
             </li>
           </>

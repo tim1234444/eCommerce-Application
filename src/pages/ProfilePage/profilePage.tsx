@@ -64,7 +64,6 @@ const ProfilePage: React.FC = () => {
       try {
         const data = await getUserProfile();
 
-        // Нормализуем данные и обновляем состояния
         setUserData({
           id: data.id,
           version: data.version,
