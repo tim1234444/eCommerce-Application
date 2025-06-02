@@ -62,7 +62,7 @@ export default async function registrationApi(
       console.log(fetchObj);
       const token = localStorage.getItem('access_token');
       if (token) {
-        const response = await fetch(
+        const response = await await fetch(
           `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
           {
             method: 'POST',
@@ -74,9 +74,12 @@ export default async function registrationApi(
         );
         console.log(response, response.status, response.ok);
         if (response.status === 201 && response.ok === true) {
-          console.log(response, response.status, response.ok);
+          const data = await response.json();
+          console.log(data);
+          localStorage.setItem('customerId', data.customer.id);
+          // console.log(response, response.status, response.ok, response.json());
           setCurrentState((currentState = true));
-          console.log(currentState);
+          // console.log(currentState);
         }
       }
     }

@@ -7,6 +7,7 @@ import CatalogPage from './pages/catalogPage';
 import NotFound from './pages/NotFoundPage';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductItem from './pages/Product_Item';
+import ProfilePage from './pages/ProfilePage/profilePage';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );
