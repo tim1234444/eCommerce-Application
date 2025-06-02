@@ -1,12 +1,12 @@
+import getCookie from './getCoockie';
+
 export async function changeCustomerPassword(
   customerId: string,
   version: number,
   currentPassword: string,
   newPassword: string,
 ) {
-  const token = localStorage.getItem('access_token');
-
-  if (!token || !customerId) {
+  if (!getCookie().access_token || !customerId) {
     throw new Error('Нет доступа к смене пароля');
   }
 
@@ -15,7 +15,7 @@ export async function changeCustomerPassword(
     {
       method: 'POST',
       headers: {
-        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${token}`,
+        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({

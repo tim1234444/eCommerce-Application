@@ -1,8 +1,8 @@
+import getCookie from './getCoockie';
 export async function getUserProfile() {
-  const token = localStorage.getItem('access_token');
   const customerId = localStorage.getItem('customerId');
 
-  if (!token || !customerId) {
+  if (!getCookie().access_token || !customerId) {
     throw new Error('Нет доступа к данным пользователя');
   }
 
@@ -10,7 +10,7 @@ export async function getUserProfile() {
     `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers/${customerId}`,
     {
       headers: {
-        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${token}`,
+        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
         'Content-Type': 'application/json',
       },
     },

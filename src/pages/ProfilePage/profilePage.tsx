@@ -14,6 +14,7 @@ import InputCity from '../../components/inputCity/InputCity';
 import InputPostalCode from '../../components/postalCode/InputPostalCode';
 import { changeCustomerPassword } from '../../api/changeUserPassword';
 import validate from '../../api/validate';
+import { Link } from 'react-router-dom';
 
 interface Address {
   id: string;
@@ -279,7 +280,9 @@ const ProfilePage: React.FC = () => {
     <div className="profile-container">
       <section>
         <h2>Personal information</h2>
-
+        <Link to="/" className="product-main-back">
+          Back to main page
+        </Link>
         {message && (
           <p
             style={{

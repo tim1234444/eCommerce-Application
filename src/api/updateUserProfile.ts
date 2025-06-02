@@ -1,4 +1,5 @@
 import type { CustomerUpdateAction } from '@commercetools/platform-sdk';
+import getCookie from './getCoockie';
 interface Address {
   id: string;
   streetName: string;
@@ -26,13 +27,12 @@ export async function updateUserProfileCT(
   version: number,
   updatedFields: CustomerUpdateAction[],
 ): Promise<Customer> {
-  const token = localStorage.getItem('access_token');
   const res = await fetch(
     `https://api.europe-west1.gcp.commercetools.com/ecommerce-application-co/customers/${id}`,
     {
       method: 'POST',
       headers: {
-        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${token}`,
+        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
