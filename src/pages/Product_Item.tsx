@@ -57,8 +57,7 @@ export default function ProductItem() {
   const [isOpen, setIsOpen] = useState(false);
   const sliderRef = useRef<SwiperRef | null>(null);
   const price = data?.masterData.current.masterVariant.prices?.[2]?.value;
-  const discPrice =
-    data?.masterData.current.masterVariant.prices?.[2]?.discounted.value;
+  const discPrice = data?.masterData.current.masterVariant.prices?.[2]?.discounted?.value;
   const formattedPrice = price
     ? (price.centAmount / 10 ** price.fractionDigits).toFixed(
         price.fractionDigits,

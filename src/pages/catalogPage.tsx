@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import getProductsList from '../api/getProductsList';
 import searchProducts from '../api/searchProducts';
 import ProductCard from '../components/productCard/ProductCard';
@@ -28,8 +28,8 @@ export default function CatalogPage() {
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
   const [products, setProducts] = useState<NormalizedProduct[]>([]);
-
-  const normalizeProduct = (product:any): NormalizedProduct => {
+  const controllerRef = useRef<AbortController | null>(null);
+  const normalizeProduct = (product: any): NormalizedProduct => {
     if (product.masterData) {
       const {
         id,
@@ -55,17 +55,31 @@ export default function CatalogPage() {
 
   useEffect(() => {
     const loadData = async () => {
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+
+      const controller = new AbortController();
+      controllerRef.current = controller;
+
       const sortParam = `${sortKey} ${sortOrder}`;
-    let rawProducts = [];
+      let rawProducts = [];
 
-    if (searchTerm.trim()) {
-      rawProducts = await searchProducts(searchTerm, sortParam);
-    } else {
-      rawProducts = await getProductsList(sortParam); 
-    }
+      try {
+        if (searchTerm.trim()) {
+          rawProducts = await searchProducts(searchTerm, sortParam);
+        } else {
+          rawProducts = await getProductsList(sortParam);
+        }
 
-      const normalized = rawProducts.map(normalizeProduct);
-      setProducts(normalized);
+        const normalized = rawProducts.map(normalizeProduct);
+        setProducts(normalized);
+      } catch (error: unknown) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+        } else {
+          console.error('Ошибка загрузки продуктов:', error);
+        }
+      }
     };
 
     loadData();
