@@ -1,0 +1,40 @@
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.addresses-section {
+  margin-top: 30px;
+}
+
+.address-card {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.address-card.billing {
+  background-color: #d0f0c0;
+}
+
+.address-card.shipping {
+  background-color: #c0d0f0;
+}
+
+.billing-label {
+  font-weight: bold;
+  color: green;
+}
+
+.shipping-label {
+  font-weight: bold;
+  color: blue;
+  margin-left: 10px;
+}
+
+.error-text {
+  color: red;
+}

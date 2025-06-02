@@ -1,6 +1,11 @@
 import validate from '../../api/validate';
 
-export default function InputEmail() {
+interface InputNameProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputEmail({ value, onChange }: InputNameProps) {
   return (
     <label>
       Email:{' '}
@@ -12,6 +17,8 @@ export default function InputEmail() {
         pattern="^\S+@\S+\.\S{2,}$"
         autoComplete="off"
         onInput={validate}
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

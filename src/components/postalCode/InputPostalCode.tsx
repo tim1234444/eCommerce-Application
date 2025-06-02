@@ -1,6 +1,11 @@
 import validate from '../../api/validate';
 
-export default function InputPostalCode() {
+interface InputNameProps {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputPostalCode({ value, onChange }: InputNameProps) {
   return (
     <label>
       Postal Code:{' '}
@@ -11,6 +16,8 @@ export default function InputPostalCode() {
         title="Enter the zip code in the format XXXXX or XXXXX-XXXX"
         autoComplete="off"
         onInput={validate}
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

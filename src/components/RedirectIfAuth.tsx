@@ -1,14 +1,11 @@
 import type { JSX } from 'react';
 import { Navigate } from 'react-router-dom';
+import getCookie from '../api/getCoockie';
 
 export const RedirectIfAuth = ({ children }: { children: JSX.Element }) => {
-  const token = localStorage.getItem('access_token');
-  
-  if (token) {
-   
+  if (getCookie().access_token) {
     return <Navigate to="/" replace />;
   }
 
-  
   return children;
 };

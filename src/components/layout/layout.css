@@ -16,14 +16,6 @@
   border-radius: 6px;
 }
 
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
 main {
   background-image: url('/src/assets/medium-vecteezy_ecstatic-young-man-embracing-new-car-imagining-purchase-at_27184857_medium.jpg');
   background-repeat: no-repeat;

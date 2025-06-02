@@ -1,5 +1,11 @@
 import validate from '../../api/validate';
-export default function InputStreetNumber() {
+
+interface InputNameProps {
+  value: string | number | undefined;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
+
+export default function InputStreetNumber({ value, onChange }: InputNameProps) {
   return (
     <label>
       Street number:{' '}
@@ -11,6 +17,8 @@ export default function InputStreetNumber() {
         title="Enter the house number (up to 5 digits and, if necessary, one letter)"
         autoComplete="off"
         onInput={validate}
+        value={value}
+        onChange={onChange}
         required
       />
     </label>

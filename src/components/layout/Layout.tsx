@@ -1,6 +1,7 @@
 import './Layout.css';
 import type { ReactNode } from 'react';
 import Navigation from '../navigation/Navigation';
+import ContactsList from '../contactsList/ContactsList';
 
 interface IChildren {
   children: ReactNode;
@@ -16,6 +17,7 @@ export default function Layout({ children }: IChildren) {
       <main>{children}</main>
 
       <footer className="footer">
+        <ContactsList />
         <p>eCommerce 2025.</p>
       </footer>
     </>
