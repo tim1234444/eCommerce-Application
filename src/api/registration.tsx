@@ -1,3 +1,4 @@
+import getCookie from './getCoockie';
 export async function getToken() {
   const url = 'https://auth.europe-west1.gcp.commercetools.com/oauth/token';
   const credentials = btoa(
@@ -14,6 +15,7 @@ export async function getToken() {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data.access_token);
       document.cookie = `access_token=${data.access_token};max-age=172800`;
     });
 }
@@ -60,15 +62,14 @@ export default async function registrationApi(
       )
         Object.assign(fetchObj, { defaultShippingAddress: 0 });
       console.log(fetchObj);
-      const token = localStorage.getItem('access_token');
-      if (token) {
+      if (getCookie().access_token) {
         const response = await await fetch(
           `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
           {
             method: 'POST',
             body: JSON.stringify(fetchObj),
             headers: {
-              Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${localStorage.getItem('access_token')}`,
+              Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
             },
           },
         );
