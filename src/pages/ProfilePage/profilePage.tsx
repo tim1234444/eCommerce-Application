@@ -12,6 +12,8 @@ import InputStreetName from '../../components/inputStreetName/InputStreetName';
 import InputStreetNumber from '../../components/inputStreetNumber/InputStreetNumber';
 import InputCity from '../../components/inputCity/InputCity';
 import InputPostalCode from '../../components/postalCode/InputPostalCode';
+import { changeCustomerPassword } from '../../api/changeUserPassword';
+import validate from '../../api/validate';
 
 interface Address {
   id: string;
@@ -58,6 +60,12 @@ const ProfilePage: React.FC = () => {
     postalCode: '',
     country: '',
   });
+
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '',
+    newPassword: '',
+  });
+  const [passwordMessage, setPasswordMessage] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchProfile() {
@@ -230,6 +238,39 @@ const ProfilePage: React.FC = () => {
     }
   };
 
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setPasswordForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handlePasswordSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!userData) return;
+
+    try {
+      console.log('Sending:', passwordForm);
+      const updatedUser = await changeCustomerPassword(
+        userData.id,
+        userData.version,
+        passwordForm.currentPassword,
+        passwordForm.newPassword,
+      );
+
+      setUserData((prev) =>
+        prev ? { ...prev, version: updatedUser.version } : null,
+      );
+
+      setPasswordMessage('Password changed successfully');
+      setPasswordForm({ currentPassword: '', newPassword: '' });
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setPasswordMessage(`Error: ${err.message}`);
+      } else {
+        setPasswordMessage('Unknown error');
+      }
+    }
+  };
+
   if (loading) return <p>Loading data...</p>;
   if (error) return <p className="error-text">Error: {error}</p>;
   if (!userData) return <p>User not found</p>;
@@ -391,6 +432,53 @@ const ProfilePage: React.FC = () => {
         ) : (
           <p>No addresses found</p>
         )}
+      </section>
+      <section className="password-section">
+        <h2>Change Password</h2>
+        {passwordMessage && (
+          <p
+            style={{
+              color: passwordMessage.toLowerCase().includes('error')
+                ? 'red'
+                : 'green',
+            }}
+          >
+            {passwordMessage}
+          </p>
+        )}
+        <form onSubmit={handlePasswordSubmit}>
+          <label>
+            Current Password:
+            <input
+              type="password"
+              name="currentPassword"
+              value={passwordForm.currentPassword}
+              onChange={handlePasswordChange}
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$"
+              title="The password must contain at least 1 uppercase and 1 lowercase letter, one digit and be at least 8 characters long."
+              onInput={validate}
+              autoComplete="off"
+              required
+            />
+          </label>
+          <br />
+          <label>
+            New Password:
+            <input
+              type="password"
+              name="newPassword"
+              value={passwordForm.newPassword}
+              onChange={handlePasswordChange}
+              pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$"
+              title="The password must contain at least 1 uppercase and 1 lowercase letter, one digit and be at least 8 characters long."
+              onInput={validate}
+              autoComplete="off"
+              required
+            />
+          </label>
+          <br />
+          <button type="submit">Change Password</button>
+        </form>
       </section>
     </div>
   );
