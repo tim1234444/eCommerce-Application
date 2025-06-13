@@ -1,7 +1,6 @@
 import getCookie from './getCoockie';
 
 export default async function getCustomer(email: string) {
-  console.log(email);
   const response = await fetch(
     `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers/
 ?where=email%3D%22${email}%22`,

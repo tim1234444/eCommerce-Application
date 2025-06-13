@@ -20,6 +20,7 @@ export default async function getCartByCustomerID() {
       }
       if (data.statusCode === 404) {
         // throw new Error(`${data.message}`);
+        console.log('user not has cart and create new cart');
         await createCart();
       }
     }
