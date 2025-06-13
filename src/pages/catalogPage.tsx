@@ -1,95 +1,134 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import getProductsList from '../api/getProductsList';
-import searchProducts from '../api/searchProducts';
+// import searchProducts from '../api/searchProducts';
 import ProductCard from '../components/productCard/ProductCard';
 import Layout from '../components/layout/Layout';
 import getCartByCustomerID from '../api/getCartByCustomerID';
 
-type NormalizedProduct = {
-  id: string;
-  name: { [locale: string]: string };
-  description?: { [locale: string]: string };
-  images: [{ url: string }];
-  prices: {
-    value: {
-      centAmount: string;
-      currencyCode: string;
-    };
-    discounted: {
-      value: {
-        centAmount: string;
-        currencyCode: string;
-      };
-    };
-  }[];
-};
+// interface IProduct {
+//   id: string;
+//   masterData: {
+//     current: {
+//       description: {
+//         'en-US': string;
+//       };
+//       name: {
+//         'en-US': string;
+//       };
+//       masterVariant: {
+//         prices: {
+//           country: string;
+//           id: string;
+//           key: string;
+//           value: {
+//             centAmount: number;
+//             currencyCode: string;
+//             fractionDigits: number;
+//             type: string;
+//           };
+//           discounted: {
+//             value: {
+//               centAmount: number;
+//               currencyCode: string;
+//             };
+//           };
+//         }[];
+//         images: { url: string }[];
+//         sku: string;
+//       };
+//     };
+//   };
+// }
+
+// type NormalizedProduct = {
+//   id: string;
+//   name: { [locale: string]: string };
+//   description?: { [locale: string]: string };
+//   images: [{ url: string }];
+//   prices: {
+//     value: {
+//       centAmount: string;
+//       currencyCode: string;
+//     };
+//     discounted: {
+//       value: {
+//         centAmount: string;
+//         currencyCode: string;
+//       };
+//     };
+//   }[];
+// };
 
 export default function CatalogPage() {
   const [sortKey, setSortKey] = useState('price');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
-  const [products, setProducts] = useState<NormalizedProduct[]>([]);
-  const controllerRef = useRef<AbortController | null>(null);
-  const normalizeProduct = (product: any): NormalizedProduct => {
-    if (product.masterData) {
-      const {
-        id,
-        masterData: {
-          current: {
-            name,
-            description,
-            masterVariant: { images, prices },
-          },
-        },
-      } = product;
-      return { id, name, description, images, prices };
-    } else {
-      const {
-        id,
-        name,
-        description,
-        masterVariant: { images, prices },
-      } = product;
-      return { id, name, description, images, prices };
-    }
-  };
+  const [products, setProducts] = useState([]);
+  // const controllerRef = useRef<AbortController | null>(null);
+  // const normalizeProduct = (product: IProduct): NormalizedProduct => {
+  // const normalizeProduct = (product: IProduct) => {
+  //   console.log(product);
+  //   // if (product.masterData) {
+  //   //   const {
+  //   //     id,
+  //   //     masterData: {
+  //   //       current: {
+  //   //         name,
+  //   //         description,
+  //   //         masterVariant: { images, prices, sku },
+  //   //       },
+  //   //     },
+  //   //   } = product;
+  //   //   return { id, name, description, images, prices };
+  //   // } else {
+  //   //   const {
+  //   //     id,
+  //   //     name,
+  //   //     description,
+  //   //     masterVariant: { images, prices },
+  //   //   } = product;
+  //   //   return { id, name, description, images, prices };
+  //   // }
+  // };
 
   useEffect(() => {
-    const loadData = async () => {
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-
-      const controller = new AbortController();
-      controllerRef.current = controller;
-
-      const sortParam = `${sortKey} ${sortOrder}`;
-      let rawProducts = [];
+    const products = getProductsList();
+    products.then((data) => {
       getCartByCustomerID();
-      try {
-        if (searchTerm.trim()) {
-          rawProducts = await searchProducts(searchTerm, sortParam);
-        } else {
-          rawProducts = await getProductsList(sortParam);
-        }
-
-        const normalized = rawProducts.map(normalizeProduct);
-        setProducts(normalized);
-      } catch (error: unknown) {
-        if (error instanceof DOMException && error.name === 'AbortError') {
-        } else {
-          console.error('Ошибка загрузки продуктов:', error);
-        }
-      }
-    };
-
-    loadData();
-  }, [searchTerm, sortKey, sortOrder]);
+      setProducts(data);
+    });
+    // const loadData = async () => {
+    //   if (controllerRef.current) {
+    //     controllerRef.current.abort();
+    //   }
+    //   const controller = new AbortController();
+    //   controllerRef.current = controller;
+    // const sortParam = `${sortKey} ${sortOrder}`;
+    //   let rawProducts = [];
+    //   getCartByCustomerID();
+    //   try {
+    //     //     if (searchTerm.trim()) {
+    //     //       rawProducts = await searchProducts(searchTerm, sortParam);
+    //     //     } else {
+    //     //       rawProducts = await getProductsList(sortParam);
+    //     //     }
+    //     // const normalized = rawProducts.map(normalizeProduct);
+    //     const prod = await getProductsList(sortParam);
+    //     setProducts(prod);
+    //     console.log(products);
+    //   } catch {
+    //     console.log('');
+    //   }
+    // };
+    // loadData();
+  }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-
+  {
+    console.log('Products: ', products);
+  }
   return (
     <Layout>
       <div className="search-bar">
@@ -120,18 +159,22 @@ export default function CatalogPage() {
         </label>
       </div>
       <ul className="products-list">
-        {products.map(({ id, name, description, images, prices }) => (
-          <ProductCard
-            key={id}
-            id={id}
-            name={{ 'en-US': name?.['en'] || name?.['en-US'] || 'No name' }}
-            description={{
-              'en-US': description?.['en'] || description?.['en-US'] || '',
-            }}
-            images={images}
-            prices={prices?.[2]}
-          />
-        ))}
+        {products &&
+          products.map(
+            ({ id, name, description, images, prices, masterVariant }) => (
+              <ProductCard
+                key={id}
+                id={id}
+                name={{ 'en-US': name?.['en'] || name?.['en-US'] || 'No name' }}
+                description={{
+                  'en-US': description?.['en'] || description?.['en-US'] || '',
+                }}
+                images={images}
+                prices={prices?.[2]}
+                masterVariant={masterVariant}
+              />
+            ),
+          )}
       </ul>
     </Layout>
   );

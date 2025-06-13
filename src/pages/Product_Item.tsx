@@ -11,7 +11,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, EffectFade, Navigation } from 'swiper/modules';
 import FullScreenSlide from '../components/ProductsSlide/FullScreenSlide';
 import type { SwiperRef } from 'swiper/react';
-interface Product {
+interface IProduct {
   id: string;
   masterData: {
     current: {
@@ -40,6 +40,7 @@ interface Product {
           };
         }[];
         images: { url: string }[];
+        sku: string;
       };
     };
   };
@@ -50,7 +51,7 @@ export default function ProductItem() {
 
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
-  const [data, setData] = useState<Product | null>(null);
+  const [data, setData] = useState<IProduct | null>(null);
   const [fullscreenSwiper, setFullscreenSwiper] = useState<SwiperType | null>(
     null,
   );

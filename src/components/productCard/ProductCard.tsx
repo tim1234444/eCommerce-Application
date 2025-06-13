@@ -1,10 +1,12 @@
 import './productCard.css';
+import addProductInCart from '../../api/addProductInCart';
 export default function ProductCard({
   id,
   name,
   images,
   description,
   prices,
+  masterVariant,
 }: {
   id: string;
   name: { 'en-US': string };
@@ -22,17 +24,26 @@ export default function ProductCard({
       };
     };
   };
+  masterVariant: {
+    sku: string;
+  };
 }) {
+  console.log(images);
   return (
-    <li key={Number(id)} data-id={id} className="item-list">
+    <li
+      key={Number(id)}
+      data-id={id}
+      data-sku={masterVariant.sku}
+      className="item-list"
+    >
       <a href={`/item/${id}`}>
         <h4>{name['en-US']}</h4>
-        <img
+        {/* <img
           src={images[0]['url']}
           width={200}
           height={150}
           alt={name['en-US']}
-        />
+        /> */}
         {prices && (
           <p>
             {`Current Price: `}
@@ -55,6 +66,14 @@ export default function ProductCard({
           }}
         ></p>
       </a>
+      <button
+        type="button"
+        onClick={() => {
+          addProductInCart(id);
+        }}
+      >
+        Add to cart
+      </button>
     </li>
   );
 }
