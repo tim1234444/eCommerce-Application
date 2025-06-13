@@ -6,18 +6,15 @@ export default async function getProductsList(sortParam = '') {
     const sortQuery = sortParam ? `?sort=${encodeURIComponent(sortParam)}` : '';
     const url = `${baseUrl}${sortQuery}`;
 
-    const response: Response = await fetch(
-      url,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
-        },
+    const response: Response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
       },
-    );
+    });
     if (response.status === 200 && response.ok === true) {
       const data = await response.json();
-      console.log(response, data.results);
+      // console.log(response, data.results);
       return data.results;
     } else {
       const err = new Error(

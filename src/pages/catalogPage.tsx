@@ -3,6 +3,7 @@ import getProductsList from '../api/getProductsList';
 import searchProducts from '../api/searchProducts';
 import ProductCard from '../components/productCard/ProductCard';
 import Layout from '../components/layout/Layout';
+import getCartByCustomerID from '../api/getCartByCustomerID';
 
 type NormalizedProduct = {
   id: string;
@@ -64,7 +65,7 @@ export default function CatalogPage() {
 
       const sortParam = `${sortKey} ${sortOrder}`;
       let rawProducts = [];
-
+      getCartByCustomerID();
       try {
         if (searchTerm.trim()) {
           rawProducts = await searchProducts(searchTerm, sortParam);
