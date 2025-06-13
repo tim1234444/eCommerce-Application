@@ -48,7 +48,12 @@ export default function ProductCard({
           </p>
         )}
 
-        <p className="item-list-description">{description['en-US']}</p>
+        <p
+          className="item-list-description"
+          dangerouslySetInnerHTML={{
+            __html: description['en-US'] || '',
+          }}
+        ></p>
       </a>
     </li>
   );
