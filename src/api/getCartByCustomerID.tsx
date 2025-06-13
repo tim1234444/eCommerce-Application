@@ -14,7 +14,6 @@ export default async function getCartByCustomerID() {
         },
       );
       const data = await response.json();
-      console.log('Get carts by id response: ', response, data);
       if (response.status === 200) {
         if (!localStorage.getItem('cartId')) {
           localStorage.setItem('cartId', `${data.id}`);
@@ -23,7 +22,6 @@ export default async function getCartByCustomerID() {
       }
       if (response.status === 404) {
         // throw new Error(`${data.message}`);
-        console.log('user not has cart and create new cart');
         await createCart();
       }
     }

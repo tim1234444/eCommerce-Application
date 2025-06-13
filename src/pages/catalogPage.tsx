@@ -67,7 +67,7 @@ export default function CatalogPage() {
   // const controllerRef = useRef<AbortController | null>(null);
   // const normalizeProduct = (product: IProduct): NormalizedProduct => {
   // const normalizeProduct = (product: IProduct) => {
-  //   console.log(product);
+
   //   // if (product.masterData) {
   //   //   const {
   //   //     id,
@@ -115,9 +115,9 @@ export default function CatalogPage() {
     //     // const normalized = rawProducts.map(normalizeProduct);
     //     const prod = await getProductsList(sortParam);
     //     setProducts(prod);
-    //     console.log(products);
+
     //   } catch {
-    //     console.log('');
+
     //   }
     // };
     // loadData();
@@ -126,9 +126,6 @@ export default function CatalogPage() {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-  {
-    console.log('Products: ', products);
-  }
   return (
     <Layout>
       <div className="search-bar">

@@ -4,7 +4,6 @@ export default async function addProductInCart(
   id: string,
   countProduct: number = 1,
 ) {
-  console.log(id);
   try {
     if (localStorage.getItem('customerId')) {
       const response = await fetch(
@@ -30,7 +29,6 @@ export default async function addProductInCart(
       );
       const data = await response.json();
       localStorage.setItem('versionCart', data.version);
-      console.log('add product response: ', data);
     }
   } catch (error) {
     console.error(error);

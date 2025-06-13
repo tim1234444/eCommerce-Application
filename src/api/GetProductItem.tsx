@@ -11,6 +11,5 @@ export async function getProduct(productId: string) {
   });
 
   const data = await response.json();
-  console.log(data);
   return data;
 }

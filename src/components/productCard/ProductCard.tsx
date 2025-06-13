@@ -28,7 +28,6 @@ export default function ProductCard({
     sku: string;
   };
 }) {
-  console.log('Images: ', images);
   return (
     <li
       key={Number(id)}

@@ -20,7 +20,6 @@ export default async function createCart() {
       );
       const data = await response.json();
       localStorage.setItem('cartId', `${data.id}`);
-      console.log('Create cart response: ', data);
     }
   } catch (error) {
     console.error(error);
