@@ -28,7 +28,7 @@ export default function ProductCard({
     sku: string;
   };
 }) {
-  console.log(images);
+  console.log('Images: ', images);
   return (
     <li
       key={Number(id)}
@@ -38,12 +38,12 @@ export default function ProductCard({
     >
       <a href={`/item/${id}`}>
         <h4>{name['en-US']}</h4>
-        {/* <img
+        <img
           src={images[0]['url']}
           width={200}
           height={150}
           alt={name['en-US']}
-        /> */}
+        />
         {prices && (
           <p>
             {`Current Price: `}

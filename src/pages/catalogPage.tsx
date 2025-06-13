@@ -161,7 +161,14 @@ export default function CatalogPage() {
       <ul className="products-list">
         {products &&
           products.map(
-            ({ id, name, description, images, prices, masterVariant }) => (
+            ({
+              id,
+              name,
+              description,
+              masterVariant: { images, prices },
+
+              masterVariant,
+            }) => (
               <ProductCard
                 key={id}
                 id={id}
