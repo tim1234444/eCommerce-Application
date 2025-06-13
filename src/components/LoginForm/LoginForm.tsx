@@ -51,7 +51,6 @@ const LoginForm = () => {
     if (!emailErr && !passwordErr) {
       const data = fetchAccessToken(email, password, setErrorMessage);
       data.then((data) => {
-        console.log(data);
         document.cookie = `access_token=${data.access_token};max-age=172800`;
         getCustomer(email).then((data) =>
           localStorage.setItem('customerId', `${data.results[0].id}`),

@@ -19,8 +19,6 @@ export default function RegistrationForm({
   currentState: boolean;
   setCurrentState: (currentState: boolean) => void;
 }) {
-  console.log(currentState);
-
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',

@@ -1,14 +1,14 @@
 export default async function fetchAccessToken(
   email: string,
   password: string,
-  SetError: React.Dispatch<React.SetStateAction<string>>
+  SetError: React.Dispatch<React.SetStateAction<string>>,
 ) {
   const authHost = import.meta.env.VITE_AUTH_URL;
   const projectKey = import.meta.env.VITE_PROJECT_KEY;
   const clientId = import.meta.env.VITE_CLIENT_ID;
   const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
   const scope = import.meta.env.VITE_SCOPES;
-  
+
   const url = `${authHost}/oauth/${projectKey}/customers/token`;
   const credentials = btoa(`${clientId}:${clientSecret}`);
 
@@ -22,10 +22,10 @@ export default async function fetchAccessToken(
   const response = await fetch(url, {
     method: 'POST',
     headers: {
-      'Authorization': `Basic ${credentials}`,
+      Authorization: `Basic ${credentials}`,
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body
+    body,
   });
 
   if (!response.ok) {
@@ -34,7 +34,6 @@ export default async function fetchAccessToken(
 
     try {
       const errorData = JSON.parse(error);
-      console.log(errorData);
 
       if (errorData?.error === 'invalid_customer_account_credentials') {
         message = 'Неверный email или пароль. Попробуйте снова.';

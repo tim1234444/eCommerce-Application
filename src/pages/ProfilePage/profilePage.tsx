@@ -249,7 +249,6 @@ const ProfilePage: React.FC = () => {
     if (!userData) return;
 
     try {
-      console.log('Sending:', passwordForm);
       const updatedUser = await changeCustomerPassword(
         userData.id,
         userData.version,

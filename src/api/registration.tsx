@@ -15,7 +15,6 @@ export async function getToken() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.access_token);
       document.cookie = `access_token=${data.access_token};max-age=172800`;
     });
 }
@@ -61,7 +60,6 @@ export default async function registrationApi(
         isDefaultShippingAddress === 'on'
       )
         Object.assign(fetchObj, { defaultShippingAddress: 0 });
-      console.log(fetchObj);
       if (getCookie().access_token) {
         const response = await await fetch(
           `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/customers`,
@@ -73,14 +71,10 @@ export default async function registrationApi(
             },
           },
         );
-        console.log(response, response.status, response.ok);
         if (response.status === 201 && response.ok === true) {
           const data = await response.json();
-          console.log(data);
           localStorage.setItem('customerId', data.customer.id);
-          // console.log(response, response.status, response.ok, response.json());
           setCurrentState((currentState = true));
-          console.log(currentState);
         }
       }
     }
