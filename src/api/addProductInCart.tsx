@@ -28,7 +28,15 @@ export default async function addProductInCart(
         },
       );
       const data = await response.json();
+      if (response.status === 200)
+        console.log(`Response resolve: `, response, `Response data: `, data);
       localStorage.setItem('versionCart', data.version);
+      if (response.status === 400) {
+        const errorResponse = new Error(
+          `Response resolve with status code: ${data.statusCode}. ${data.message}`,
+        );
+        throw errorResponse;
+      }
     }
   } catch (error) {
     console.error(error);

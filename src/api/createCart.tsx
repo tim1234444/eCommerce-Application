@@ -19,7 +19,14 @@ export default async function createCart() {
         },
       );
       const data = await response.json();
-      localStorage.setItem('cartId', `${data.id}`);
+      if (response.status === 200) {
+        localStorage.setItem('cartId', `${data.id}`);
+      } else {
+        const errorResponse = new Error(
+          `Response resolve with status code: ${data.code}. ${data.message}`,
+        );
+        throw errorResponse;
+      }
     }
   } catch (error) {
     console.error(error);
