@@ -11,9 +11,12 @@ export default function Navigation() {
   useEffect(() => {
     const token = getCookie().access_token;
     setIsLogin(!!token);
-  }, []);
+  }, [localStorage.getItem('customerId')]);
   const handleLogout = () => {
     document.cookie = `access_token=;expires=${new Date(0)}`;
+    localStorage.removeItem('customerId');
+    localStorage.removeItem('cartId');
+    localStorage.removeItem('versionCart');
     setIsLogin(false);
     navigate('/authorization');
   };
@@ -50,7 +53,13 @@ export default function Navigation() {
               <Link to="/profile">Profile</Link>
             </li>
             <li>
-              <button onClick={handleLogout}>Logout</button>
+              <button
+                onClick={() => {
+                  handleLogout();
+                }}
+              >
+                Logout
+              </button>
             </li>
           </>
         )}
