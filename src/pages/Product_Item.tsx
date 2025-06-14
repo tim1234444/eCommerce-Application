@@ -11,6 +11,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, EffectFade, Navigation } from 'swiper/modules';
 import FullScreenSlide from '../components/ProductsSlide/FullScreenSlide';
 import type { SwiperRef } from 'swiper/react';
+import getCartByCustomerID from '../api/getCartByCustomerID';
+import addProductInCart from '../api/addProductInCart';
+import deleteProductInCart from '../api/deleteProductInCart';
 interface IProduct {
   id: string;
   masterData: {
@@ -47,8 +50,12 @@ interface IProduct {
 }
 
 export default function ProductItem() {
+  const [IsChange, setIsChange] = useState<boolean>(false);
+  const [maxCountproduct, SetmaxCountproduct] = useState();
+  const [lineItemId, SetlineItemId] = useState();
   const { productId } = useParams<string>(); // productId будет "номер товара"
-
+  const [addButtonDisabled, SetaddButtonDisabled] = useState(false);
+  const [deleteButtonDisabled, SetdeleteButtonDisabled] = useState(true);
   const [IsLoading, setIsLoading] = useState<boolean>(false);
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [data, setData] = useState<IProduct | null>(null);
@@ -69,6 +76,7 @@ export default function ProductItem() {
   useEffect(() => {
     async function fetchData() {
       if (productId) {
+        console.log(productId);
         const result = await getProduct(productId);
         setData(result);
         setIsLoading(true);
@@ -108,6 +116,27 @@ export default function ProductItem() {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [isOpen]);
+  useEffect(() => {
+    async function fetchData() {
+      const data = await getCartByCustomerID();
+      console.log(data);
+      for (const item of data.lineItems) {
+        if (item.productId == productId) {
+          console.log(item.id, 111111111111);
+          SetmaxCountproduct(item.quantity);
+          SetlineItemId(item.id);
+          SetaddButtonDisabled(true);
+          SetdeleteButtonDisabled(false);
+        } else {
+          SetaddButtonDisabled(false);
+          SetdeleteButtonDisabled(true);
+        }
+      }
+      setIsChange(false);
+    }
+
+    fetchData();
+  }, [IsChange]);
   return (
     <Layout>
       {IsLoading ? (
@@ -232,6 +261,29 @@ export default function ProductItem() {
                   }}
                 />
               </div>
+              <button
+                onClick={async () => {
+                  if (productId) {
+                    await addProductInCart(productId);
+                    setIsChange(true);
+                  }
+                }}
+                disabled={addButtonDisabled}
+              >
+                add to basket
+              </button>
+              <button
+                onClick={async () => {
+                  console.log(productId, lineItemId);
+                  if (productId && lineItemId) {
+                    await deleteProductInCart(lineItemId, maxCountproduct);
+                    setIsChange(true);
+                  }
+                }}
+                disabled={deleteButtonDisabled}
+              >
+                delete to basket
+              </button>
             </div>
           </div>
           <Link to="/catalog" className="product-main-back">

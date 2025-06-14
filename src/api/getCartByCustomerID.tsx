@@ -19,6 +19,7 @@ export default async function getCartByCustomerID() {
           localStorage.setItem('cartId', `${data.id}`);
           localStorage.setItem('versionCart', data.version);
         }
+        return data;
       }
       if (response.status === 404) {
         // throw new Error(`${data.message}`);
