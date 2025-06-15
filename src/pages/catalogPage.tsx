@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import getProductsList from '../api/getProductsList';
+import Pagintaion from '../components/pagination/Pagination';
 // import searchProducts from '../api/searchProducts';
 import ProductCard from '../components/productCard/ProductCard';
 import Layout from '../components/layout/Layout';
@@ -92,11 +93,12 @@ export default function CatalogPage() {
   // };
 
   useEffect(() => {
-    const products = getProductsList();
-    products.then((data) => {
+    const productsArray = getProductsList();
+    productsArray.then((data) => {
       getCartByCustomerID();
       setProducts(data);
     });
+
     // const loadData = async () => {
     //   if (controllerRef.current) {
     //     controllerRef.current.abort();
@@ -126,6 +128,7 @@ export default function CatalogPage() {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+  console.log('Products is: ', products);
   return (
     <Layout>
       <div className="search-bar">
@@ -180,6 +183,11 @@ export default function CatalogPage() {
             ),
           )}
       </ul>
+      {products.length >= 6 ? (
+        <Pagintaion products={products} setProducts={setProducts} />
+      ) : (
+        <div></div>
+      )}
     </Layout>
   );
 }

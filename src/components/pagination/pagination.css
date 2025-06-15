@@ -1,0 +1,11 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pagination button:disabled {
+  background-color: #b0aeae;
+  color: #ffffff;
+}
