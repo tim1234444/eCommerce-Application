@@ -19,6 +19,12 @@ a {
   text-decoration: none;
 }
 
+button,
+.product-main-back {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 button:hover,
 a:hover {
   color: #848489;
@@ -45,7 +51,8 @@ button,
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #c0c0c0;
+  background-color: #000000;
+  color: #ffffff;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -58,6 +65,7 @@ button,
 
   button,
   .button-navigation {
-    background-color: #c0c0c0;
+    background-color: #000000;
+    color: #ffffff;
   }
 }
