@@ -25,7 +25,7 @@ export default function Pagintaion({
               getProductsResultLimits('prev', setProducts);
             }}
           >
-            Prev
+            1
           </button>
           <button
             className="pagination-button--next"
@@ -36,7 +36,7 @@ export default function Pagintaion({
               getProductsResultLimits('next', setProducts);
             }}
           >
-            Next
+            2
           </button>
         </>
       ) : (
