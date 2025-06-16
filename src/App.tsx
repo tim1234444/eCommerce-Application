@@ -10,6 +10,7 @@ import ProductItem from './pages/Product_Item';
 import ProfilePage from './pages/ProfilePage/profilePage';
 import RequireAuth from './components/RequireAuth';
 import CartPage from './pages/CartPage/CartPage';
+import AboutUsPage from './pages/AboutUsPage/AboutUsPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/catalog" element={<CatalogPage />} />
+        <Route path="/about" element={<AboutUsPage />} />
         <Route
           path="/cart"
           element={
