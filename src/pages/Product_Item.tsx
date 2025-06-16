@@ -14,6 +14,7 @@ import type { SwiperRef } from 'swiper/react';
 import getCartByCustomerID from '../api/getCartByCustomerID';
 import addProductInCart from '../api/addProductInCart';
 import deleteProductInCart from '../api/deleteProductInCart';
+
 interface IProduct {
   id: string;
   masterData: {
@@ -51,7 +52,9 @@ interface IProduct {
 
 export default function ProductItem() {
   const [IsChange, setIsChange] = useState<boolean>(false);
-  const [maxCountproduct, SetmaxCountproduct] = useState();
+  const [showToast, setShowToast] = useState(false);
+  const [color, setColor] = useState('green');
+  const [toastMessage, setToastMessage] = useState('');
   const [lineItemId, SetlineItemId] = useState();
   const { productId } = useParams<string>(); // productId будет "номер товара"
   const [addButtonDisabled, SetaddButtonDisabled] = useState(false);
@@ -67,11 +70,16 @@ export default function ProductItem() {
   const price = data?.masterData.current.masterVariant.prices?.[2]?.value;
   const discPrice =
     data?.masterData.current.masterVariant.prices?.[2]?.discounted?.value;
-  const formattedPrice = price
-    ? (price.centAmount / 10 ** price.fractionDigits).toFixed(
-        price.fractionDigits,
-      )
-    : '';
+  const formattedPrice = price ? price.centAmount : '';
+
+  const showToastMessage = (message: string) => {
+    setToastMessage(message);
+    setShowToast(true);
+    setTimeout(() => {
+      setShowToast(false);
+      setToastMessage('');
+    }, 3000);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -120,14 +128,19 @@ export default function ProductItem() {
     async function fetchData() {
       const data = await getCartByCustomerID();
       console.log(data);
+      if (data.lineItems.length === 0) {
+        SetaddButtonDisabled(false);
+        SetdeleteButtonDisabled(true);
+      }
+      let Flag = true;
       for (const item of data.lineItems) {
         if (item.productId == productId) {
-          console.log(item.id, 111111111111);
-          SetmaxCountproduct(item.quantity);
           SetlineItemId(item.id);
           SetaddButtonDisabled(true);
           SetdeleteButtonDisabled(false);
-        } else {
+          Flag = false;
+        }
+        if (Flag) {
           SetaddButtonDisabled(false);
           SetdeleteButtonDisabled(true);
         }
@@ -249,7 +262,7 @@ export default function ProductItem() {
                 {discPrice && (
                   <p className="item-list-discount">
                     {`Current discount price: `}
-                    {(discPrice.centAmount / 10 ** 2).toFixed(2)}
+                    {discPrice.centAmount}
                     USD
                   </p>
                 )}
@@ -264,8 +277,15 @@ export default function ProductItem() {
               <button
                 onClick={async () => {
                   if (productId) {
-                    await addProductInCart(productId);
-                    setIsChange(true);
+                    const data = await addProductInCart(productId);
+                    if (data) {
+                      setIsChange(true);
+                      setColor('green');
+                      showToastMessage('Product added to cart!');
+                    } else {
+                      setColor('red');
+                      showToastMessage('Error');
+                    }
                   }
                 }}
                 disabled={addButtonDisabled}
@@ -274,18 +294,30 @@ export default function ProductItem() {
               </button>
               <button
                 onClick={async () => {
-                  console.log(productId, lineItemId);
                   if (productId && lineItemId) {
-                    await deleteProductInCart(lineItemId, maxCountproduct);
-                    setIsChange(true);
+                    const data = await deleteProductInCart(lineItemId);
+                    if (data) {
+                      setIsChange(true);
+                      setColor('green');
+                      showToastMessage('Product removed from cart!');
+                    } else {
+                      setColor('red');
+                      showToastMessage('Error');
+                    }
                   }
                 }}
                 disabled={deleteButtonDisabled}
               >
-                delete to basket
+                delete from basket
               </button>
             </div>
           </div>
+          {showToast && (
+            <div style={{ background: color }} className="toast">
+              {toastMessage}
+            </div>
+          )}
+
           <Link to="/catalog" className="product-main-back">
             Back to catalog
           </Link>

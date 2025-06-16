@@ -14,6 +14,7 @@ export default function Promo() {
         eco-friendly hybrid, our extensive inventory has the perfect car for
         you.
       </p>
+      <h2 style={{ color: 'red' }}>promocode D34f77 - 40% discount</h2>
     </div>
   );
 }

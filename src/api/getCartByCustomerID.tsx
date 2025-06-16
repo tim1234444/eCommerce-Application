@@ -23,7 +23,7 @@ export default async function getCartByCustomerID() {
       }
       if (response.status === 404) {
         // throw new Error(`${data.message}`);
-        await createCart();
+        return await createCart();
       }
     }
   } catch (error) {

@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ProductItem from './pages/Product_Item';
 import ProfilePage from './pages/ProfilePage/profilePage';
 import RequireAuth from './components/RequireAuth';
+import CartPage from './pages/CartPage/CartPage';
 
 function App() {
   return (
@@ -34,6 +35,14 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/catalog" element={<CatalogPage />} />
+        <Route
+          path="/cart"
+          element={
+            <RequireAuth>
+              <CartPage />
+            </RequireAuth>
+          }
+        />
         <Route
           path="/profile"
           element={

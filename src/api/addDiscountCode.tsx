@@ -1,9 +1,6 @@
 import getCookie from './getCoockie';
 
-export default async function addProductInCart(
-  id: string,
-  countProduct: number = 1,
-) {
+export default async function addDiscountCode(code: string) {
   try {
     if (localStorage.getItem('customerId')) {
       const response = await fetch(
@@ -18,10 +15,8 @@ export default async function addProductInCart(
             version: Number(localStorage.getItem('versionCart')),
             actions: [
               {
-                action: 'addLineItem',
-                productId: `${id}`,
-                variantId: 1,
-                quantity: countProduct,
+                action: 'addDiscountCode',
+                code: code,
               },
             ],
           }),
@@ -32,7 +27,7 @@ export default async function addProductInCart(
         console.log(`Response resolve: `, response, `Response data: `, data);
         localStorage.setItem('versionCart', data.version);
         localStorage.setItem('countItems', data.totalLineItemQuantity);
-        return true;
+        return data;
       }
       if (response.status === 400) {
         const errorResponse = new Error(

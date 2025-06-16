@@ -1,32 +1,23 @@
 import getCookie from './getCoockie';
 
-export default async function deleteProductInCart(id: string) {
+export default async function deleteProductCart() {
   try {
     if (localStorage.getItem('customerId')) {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/carts/${localStorage.getItem('cartId')}`,
+        `${import.meta.env.VITE_API_URL}/${import.meta.env.VITE_PROJECT_KEY}/carts/${localStorage.getItem('cartId')}?version=${localStorage.getItem('versionCart')}`,
         {
-          method: 'POST',
+          method: 'DELETE',
           headers: {
             Authorization: `${import.meta.env.VITE_TOKEN_TYPE} ${getCookie().access_token}`,
-            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({
-            version: Number(localStorage.getItem('versionCart')),
-            actions: [
-              {
-                action: 'removeLineItem',
-                lineItemId: `${id}`,
-              },
-            ],
-          }),
         },
       );
       const data = await response.json();
       if (response.status === 200) {
         console.log(`Response resolve: `, response, `Response data: `, data);
-        localStorage.setItem('versionCart', data.version);
-        localStorage.setItem('countItems', data.totalLineItemQuantity);
+        localStorage.removeItem('versionCart');
+        localStorage.removeItem('cartId');
+        localStorage.removeItem('countItems');
         return true;
       }
       if (response.status === 400) {
