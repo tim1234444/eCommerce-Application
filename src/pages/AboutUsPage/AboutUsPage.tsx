@@ -6,6 +6,16 @@ import styles from './AboutUsPage.module.css';
 const AboutUsPage: React.FC = () => {
   return (
     <div className={styles.container}>
+      {/* ЛОГОТИП RS SCHOOL */}
+      <div className={styles.logoContainer}>
+        <a href="https://rs.school/" target="_blank" rel="noopener noreferrer">
+          <img
+            src="./src/assets/rss-logo.svg"
+            alt="RS School Logo"
+            className={styles.logo}
+          />
+        </a>
+      </div>
       <h1 className={styles.heading}>About our team</h1>
       <p className={styles.description}>
         Our team is a close-knit group of professionals who came together to
