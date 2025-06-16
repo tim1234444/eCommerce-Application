@@ -1,0 +1,37 @@
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  & a {
+    display: block;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  & a:hover {
+    background-color: #c0c0c0c8;
+  }
+}
+
+.logo {
+  margin-right: auto;
+}
+
+.logo img {
+  max-height: 50px;
+  max-width: 100px;
+  width: 100%;
+}

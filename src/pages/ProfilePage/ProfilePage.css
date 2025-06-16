@@ -1,0 +1,57 @@
+.profile-container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.profile-container-wrapper {
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  padding: 15px;
+}
+
+.addresses-section {
+  margin-top: 30px;
+}
+
+.password-section form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  padding: 15px;
+
+  & label {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
+
+.address-card {
+  background-color: #f0f0f0;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.address-card.billing {
+  background-color: #d0f0c0;
+}
+
+.billing-label {
+  font-weight: bold;
+  color: green;
+}
+
+.shipping-label {
+  font-weight: bold;
+  color: blue;
+  margin-left: 10px;
+}
+
+.error-text {
+  color: red;
+}

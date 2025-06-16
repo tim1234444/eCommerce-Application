@@ -1,0 +1,57 @@
+.form-registration {
+  font-size: 16px;
+  max-width: 320px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: #ffffff;
+  opacity: 0.7;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 20px #ffffff;
+
+  & input {
+    background-color: #c0c0c0;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ffffff;
+    padding: 10px 20px;
+  }
+
+  & button {
+    background-color: #c0c0c0;
+  }
+}
+
+.form-registration fieldset {
+  border: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-registration fieldset:last-of-type {
+  margin-bottom: 20px;
+}
+
+.form-registration fieldset label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 15px;
+  padding-bottom: 20px;
+}
+
+.form-registration input[type='date']::after {
+  position: absolute;
+  content: '(e.g., 13 years old or older)';
+  max-width: 300px;
+  left: 0;
+  bottom: 0;
+}
+
+.button-navigation {
+  display: inline-flex;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+}
