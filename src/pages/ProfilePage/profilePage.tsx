@@ -249,7 +249,6 @@ const ProfilePage: React.FC = () => {
     if (!userData) return;
 
     try {
-      console.log('Sending:', passwordForm);
       const updatedUser = await changeCustomerPassword(
         userData.id,
         userData.version,
@@ -283,65 +282,72 @@ const ProfilePage: React.FC = () => {
         <Link to="/" className="product-main-back">
           Back to main page
         </Link>
-        {message && (
-          <p
-            style={{
-              color: message.toLowerCase().includes('ошибка') ? 'red' : 'green',
-            }}
-          >
-            {message}
-          </p>
-        )}
+        <div className="profile-container-wrapper">
+          {message && (
+            <p
+              style={{
+                color: message.toLowerCase().includes('ошибка')
+                  ? 'red'
+                  : 'green',
+              }}
+            >
+              {message}
+            </p>
+          )}
 
-        {!editMode ? (
-          <>
-            <p>
-              <strong>First name:</strong> {userData.firstName}
-            </p>
-            <p>
-              <strong>Last name:</strong> {userData.lastName}
-            </p>
-            <p>
-              <strong>Email:</strong> {userData.email}
-            </p>
-            <p>
-              <strong>Date of birth:</strong>{' '}
-              {userData.dateOfBirth || 'не указана'}
-            </p>
-            <button
-              onClick={() => {
-                setEditMode(true);
-                setMessage(null);
-              }}
-            >
-              Edit
-            </button>
-          </>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <InputName value={formData.firstName} onChange={handleChange} />
-            <br />
-            <InputLastName value={formData.lastName} onChange={handleChange} />
-            <br />
-            <InputEmail value={formData.email} onChange={handleChange} />
-            <br />
-            <InputdateOfBirth
-              value={formData.dateOfBirth}
-              onChange={handleChange}
-            />
-            <br />
-            <button type="submit">Save</button>{' '}
-            <button
-              type="button"
-              onClick={() => {
-                setEditMode(false);
-                setMessage(null);
-              }}
-            >
-              Cancel
-            </button>
-          </form>
-        )}
+          {!editMode ? (
+            <>
+              <p>
+                <strong>First name:</strong> {userData.firstName}
+              </p>
+              <p>
+                <strong>Last name:</strong> {userData.lastName}
+              </p>
+              <p>
+                <strong>Email:</strong> {userData.email}
+              </p>
+              <p>
+                <strong>Date of birth:</strong>{' '}
+                {userData.dateOfBirth || 'не указана'}
+              </p>
+              <button
+                onClick={() => {
+                  setEditMode(true);
+                  setMessage(null);
+                }}
+              >
+                Edit
+              </button>
+            </>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              <InputName value={formData.firstName} onChange={handleChange} />
+              <br />
+              <InputLastName
+                value={formData.lastName}
+                onChange={handleChange}
+              />
+              <br />
+              <InputEmail value={formData.email} onChange={handleChange} />
+              <br />
+              <InputdateOfBirth
+                value={formData.dateOfBirth}
+                onChange={handleChange}
+              />
+              <br />
+              <button type="submit">Save</button>{' '}
+              <button
+                type="button"
+                onClick={() => {
+                  setEditMode(false);
+                  setMessage(null);
+                }}
+              >
+                Cancel
+              </button>
+            </form>
+          )}
+        </div>
       </section>
 
       <section className="addresses-section">

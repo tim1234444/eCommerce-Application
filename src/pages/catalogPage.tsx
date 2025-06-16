@@ -1,94 +1,28 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import getProductsList from '../api/getProductsList';
-import searchProducts from '../api/searchProducts';
+import Pagintaion from '../components/pagination/Pagination';
 import ProductCard from '../components/productCard/ProductCard';
 import Layout from '../components/layout/Layout';
-
-type NormalizedProduct = {
-  id: string;
-  name: { [locale: string]: string };
-  description?: { [locale: string]: string };
-  images: [{ url: string }];
-  prices: {
-    value: {
-      centAmount: string;
-      currencyCode: string;
-    };
-    discounted: {
-      value: {
-        centAmount: string;
-        currencyCode: string;
-      };
-    };
-  }[];
-};
+import getCartByCustomerID from '../api/getCartByCustomerID';
 
 export default function CatalogPage() {
   const [sortKey, setSortKey] = useState('price');
   const [sortOrder, setSortOrder] = useState('asc');
   const [searchTerm, setSearchTerm] = useState('');
-  const [products, setProducts] = useState<NormalizedProduct[]>([]);
-  const controllerRef = useRef<AbortController | null>(null);
-  const normalizeProduct = (product: any): NormalizedProduct => {
-    if (product.masterData) {
-      const {
-        id,
-        masterData: {
-          current: {
-            name,
-            description,
-            masterVariant: { images, prices },
-          },
-        },
-      } = product;
-      return { id, name, description, images, prices };
-    } else {
-      const {
-        id,
-        name,
-        description,
-        masterVariant: { images, prices },
-      } = product;
-      return { id, name, description, images, prices };
-    }
-  };
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const loadData = async () => {
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-
-      const controller = new AbortController();
-      controllerRef.current = controller;
-
-      const sortParam = `${sortKey} ${sortOrder}`;
-      let rawProducts = [];
-
-      try {
-        if (searchTerm.trim()) {
-          rawProducts = await searchProducts(searchTerm, sortParam);
-        } else {
-          rawProducts = await getProductsList(sortParam);
-        }
-
-        const normalized = rawProducts.map(normalizeProduct);
-        setProducts(normalized);
-      } catch (error: unknown) {
-        if (error instanceof DOMException && error.name === 'AbortError') {
-        } else {
-          console.error('Ошибка загрузки продуктов:', error);
-        }
-      }
-    };
-
-    loadData();
-  }, [searchTerm, sortKey, sortOrder]);
+    const productsArray = getProductsList();
+    productsArray.then((data) => {
+      getCartByCustomerID();
+      setProducts(data);
+    });
+  }, []);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
-
+  console.log('Products is: ', products);
   return (
     <Layout>
       <div className="search-bar">
@@ -119,19 +53,35 @@ export default function CatalogPage() {
         </label>
       </div>
       <ul className="products-list">
-        {products.map(({ id, name, description, images, prices }) => (
-          <ProductCard
-            key={id}
-            id={id}
-            name={{ 'en-US': name?.['en'] || name?.['en-US'] || 'No name' }}
-            description={{
-              'en-US': description?.['en'] || description?.['en-US'] || '',
-            }}
-            images={images}
-            prices={prices?.[2]}
-          />
-        ))}
+        {products &&
+          products.map(
+            ({
+              id,
+              name,
+              description,
+              masterVariant: { images, prices },
+
+              masterVariant,
+            }) => (
+              <ProductCard
+                key={id}
+                id={id}
+                name={{ 'en-US': name?.['en'] || name?.['en-US'] || 'No name' }}
+                description={{
+                  'en-US': description?.['en'] || description?.['en-US'] || '',
+                }}
+                images={images}
+                prices={prices?.[2]}
+                masterVariant={masterVariant}
+              />
+            ),
+          )}
       </ul>
+      {products.length >= 6 ? (
+        <Pagintaion products={products} setProducts={setProducts} />
+      ) : (
+        <div></div>
+      )}
     </Layout>
   );
 }

@@ -1,10 +1,12 @@
 import './productCard.css';
+import addProductInCart from '../../api/addProductInCart';
 export default function ProductCard({
   id,
   name,
   images,
   description,
   prices,
+  masterVariant,
 }: {
   id: string;
   name: { 'en-US': string };
@@ -22,9 +24,17 @@ export default function ProductCard({
       };
     };
   };
+  masterVariant: {
+    sku: string;
+  };
 }) {
   return (
-    <li key={Number(id)} data-id={id} className="item-list">
+    <li
+      key={Number(id)}
+      data-id={id}
+      data-sku={masterVariant.sku}
+      className="item-list"
+    >
       <a href={`/item/${id}`}>
         <h4>{name['en-US']}</h4>
         <img
@@ -48,8 +58,21 @@ export default function ProductCard({
           </p>
         )}
 
-        <p className="item-list-description">{description['en-US']}</p>
+        <p
+          className="item-list-description"
+          dangerouslySetInnerHTML={{
+            __html: description['en-US'] || '',
+          }}
+        ></p>
       </a>
+      <button
+        type="button"
+        onClick={() => {
+          addProductInCart(id);
+        }}
+      >
+        Add to cart
+      </button>
     </li>
   );
 }
