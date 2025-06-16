@@ -24,6 +24,7 @@ export default async function registrationApi(
   currentState: boolean,
   setCurrentState: (currentState: boolean) => void,
 ) {
+  console.log(currentState);
   try {
     await getToken();
     const formRegistration = document.querySelector('.form-registration');
