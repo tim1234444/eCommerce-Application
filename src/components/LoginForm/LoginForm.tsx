@@ -1,6 +1,6 @@
 import './LoginForm.css';
 import React, { useState } from 'react';
-import InputField from '../inputField/InputField';
+import InputField from '../InputField/InputField';
 import { useNavigate } from 'react-router-dom';
 import fetchAccessToken from '../../api/getToken';
 import getCustomer from '../../api/getCustomer';

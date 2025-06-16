@@ -1,0 +1,171 @@
+.cart {
+  width: 95vw;
+  min-height: 60vh;
+  margin: 20px auto;
+  padding: 10px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.cart__list {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.car__item-info {
+  align-items: center;
+  display: flex;
+  padding: 15px;
+  gap: 15px;
+  justify-content: space-between;
+}
+.info__count,
+.change__buttons,
+.info__change-count,
+.info__price,
+.info__img,
+.info__name,
+.info__total {
+  flex-grow: 1;
+}
+
+.car__item {
+  border: 1px solid #e0e0e0; /* ➕ */
+  border-radius: 10px; /* ➕ */
+  overflow: hidden;
+  background-color: #fafafa; /* ➕ */
+  transition: box-shadow 0.3s; /* ➕ */
+}
+.car__item:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); /* ➕ эффект при наведении */
+}
+.info__img {
+  width: 120px; /* 🔄 уменьшено для компактности */
+  height: 90px; /* 🔄 */
+  object-fit: cover; /* ➕ чтобы картинка не растягивалась */
+  border-radius: 8px; /* ➕ */
+}
+.change__buttons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.change__plus,
+.change__minus,
+.info__save,
+.delete-button {
+  padding: 8px 12px; /* 🔄 */
+  font-size: 14px; /* 🔄 */
+  font-weight: 500; /* ➕ */
+  background-color: #f0f0f0; /* 🔄 */
+  border: none; /* 🔄 */
+  border-radius: 6px; /* ➕ */
+  cursor: pointer;
+  transition: background-color 0.3s; /* ➕ */
+}
+.change__plus:hover,
+.change__minus:hover,
+.info__save:hover,
+.delete-button:hover {
+  background-color: #dcdcdc;
+}
+.delete-button {
+  width: 100px;
+  height: 50px;
+}
+.info__save {
+  background-color: #4caf50;
+  color: white;
+}
+.info__save:hover {
+  color: white;
+  background-color: #3e9e43;
+}
+
+/* 🔄 Стиль кнопки "Delete" */
+.delete-button {
+  background-color: #f44336;
+  color: white;
+}
+.delete-button:hover {
+  color: white;
+  background-color: #d32f2f;
+}
+
+/* ➕ Новый стиль: обёртка для изображения */
+.info__img-container {
+  flex: 0 0 auto;
+}
+
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  font-weight: 500;
+  animation: slideIn 0.4s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.cart__total-price {
+  font-weight: 600;
+  font-size: 22px;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal__content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.modal__content button {
+  margin: 0 10px;
+}
+
+.cart .promo {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cart .promo__input {
+  padding: 8px;
+  font-size: 16px;
+  flex: 1;
+}
+
+.cart .promo__button {
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}

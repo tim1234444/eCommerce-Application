@@ -1,8 +1,8 @@
 import getCookie from './getCoockie';
 
-export default async function addProductInCart(
+export default async function changeLineItemQuantity(
   id: string,
-  countProduct: number = 1,
+  countProduct: number,
 ) {
   try {
     if (localStorage.getItem('customerId')) {
@@ -18,9 +18,9 @@ export default async function addProductInCart(
             version: Number(localStorage.getItem('versionCart')),
             actions: [
               {
-                action: 'addLineItem',
-                productId: `${id}`,
-                variantId: 1,
+                action: 'changeLineItemQuantity',
+                lineItemId: `${id}`,
+
                 quantity: countProduct,
               },
             ],

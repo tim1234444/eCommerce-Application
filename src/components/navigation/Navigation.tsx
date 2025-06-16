@@ -47,6 +47,11 @@ export default function Navigation() {
         {isLogin && (
           <>
             <li>
+              <Link to="/cart" className="auth-link">
+                Cart 🛒
+              </Link>
+            </li>
+            <li>
               <Link to="/catalog">Catalog</Link>
             </li>
             <li>

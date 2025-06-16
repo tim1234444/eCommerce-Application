@@ -19,8 +19,10 @@ export default async function createCart() {
         },
       );
       const data = await response.json();
-      if (response.status === 200) {
+      if (response.status === 201) {
         localStorage.setItem('cartId', `${data.id}`);
+        localStorage.setItem('versionCart', `${data.version}`);
+        return data;
       } else {
         const errorResponse = new Error(
           `Response resolve with status code: ${data.code}. ${data.message}`,

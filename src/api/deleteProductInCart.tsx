@@ -1,9 +1,6 @@
 import getCookie from './getCoockie';
 
-export default async function addProductInCart(
-  id: string,
-  countProduct: number = 1,
-) {
+export default async function deleteProductInCart(id: string) {
   try {
     if (localStorage.getItem('customerId')) {
       const response = await fetch(
@@ -18,10 +15,8 @@ export default async function addProductInCart(
             version: Number(localStorage.getItem('versionCart')),
             actions: [
               {
-                action: 'addLineItem',
-                productId: `${id}`,
-                variantId: 1,
-                quantity: countProduct,
+                action: 'removeLineItem',
+                lineItemId: `${id}`,
               },
             ],
           }),
