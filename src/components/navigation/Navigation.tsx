@@ -42,7 +42,7 @@ export default function Navigation() {
           <Link to="/">Main</Link>
         </li>
         <li>
-          <Link to="/about">About Us</Link>
+          <Link to="/about">🤝About Us</Link>
         </li>
         {isLogin && (
           <>
