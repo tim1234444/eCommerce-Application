@@ -41,6 +41,9 @@ export default function Navigation() {
         <li>
           <Link to="/">Main</Link>
         </li>
+        <li>
+          <Link to="/about">About Us</Link>
+        </li>
         {isLogin && (
           <>
             <li>

@@ -19,6 +19,7 @@
   display: grid;
   gap: 1.5rem;
   justify-items: center; 
+  margin-bottom: 2rem;
 }
 
 
@@ -36,6 +37,7 @@
 .logo:hover {
   transform: scale(1.05);
 }
+
 
 
 @media (min-width: 768px) {

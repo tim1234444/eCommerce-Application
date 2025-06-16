@@ -2,6 +2,7 @@ import React from 'react';
 import { teamMembers } from './teamData';
 import { TeamMemberCard } from './TeamMemberCard';
 import styles from './AboutUsPage.module.css';
+import { Link } from 'react-router-dom';
 
 const AboutUsPage: React.FC = () => {
   return (
@@ -28,6 +29,9 @@ const AboutUsPage: React.FC = () => {
           <TeamMemberCard key={member.githubUrl} member={member} />
         ))}
       </div>
+      <Link to="/" className="product-main-back">
+        Back to main page
+      </Link>
     </div>
   );
 };
