@@ -156,15 +156,15 @@ export default function CartPage() {
                   }}
                   className="promo__button"
                 >
-                  Применить
+                  Apply
                 </button>
               </div>
               {showConfirm && (
                 <div className="modal">
                   <div className="modal__content">
-                    <p>Вы уверены, что хотите очистить корзину?</p>
-                    <button onClick={handleClearCart}>Да</button>
-                    <button onClick={() => setShowConfirm(false)}>Нет</button>
+                    <p>Are you sure you want to empty your trash?</p>
+                    <button onClick={handleClearCart}>Yes</button>
+                    <button onClick={() => setShowConfirm(false)}>No</button>
                   </div>
                 </div>
               )}
